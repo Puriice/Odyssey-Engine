@@ -9,11 +9,11 @@ import java.util.HashMap;
 
 @SuppressWarnings("unused")
 public class EntitySprite {
-    public static final int NORTH = 0;
-    public static final int EAST = 1;
-    public static final int SOUTH = 2;
-    public static final int WEST = 3;
-    private final HashMap<Integer, ImageIcon> SPRITE = new HashMap<>();
+    public static final Direction NORTH = Direction.NORTH;
+    public static final Direction EAST = Direction.EAST;
+    public static final Direction SOUTH = Direction.SOUTH;
+    public static final Direction WEST = Direction.WEST;
+    private final HashMap<Direction, ImageIcon> SPRITE = new HashMap<>();
     public EntitySprite(String entityId) {
         String gameId = Game.getGameInstance().GAME_ID;
         String template = gameId + "/assets/entities/" + entityId;
@@ -28,7 +28,7 @@ public class EntitySprite {
         }
     }
 
-    public HashMap<Integer, ImageIcon> getSprite() {
+    public HashMap<Direction, ImageIcon> getSprite() {
         return SPRITE;
     }
 }

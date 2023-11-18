@@ -26,7 +26,7 @@ public class TestLevel extends Level {
             protected void destroy(Player player, Coordinate playerCoordinate) {
 
             }
-        });
+        }, 0, 0);
 
         return this;
     }

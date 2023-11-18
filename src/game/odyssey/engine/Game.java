@@ -24,8 +24,8 @@ public class Game {
     public Game(String gameTitle, String gameId) {
         this.GAME_TITLE = gameTitle;
         this.GAME_ID = gameId;
-        Game.engine = new Engine(this.GAME_TITLE);
         this.player = new Player();
+        Game.engine = new Engine(this.GAME_TITLE);
     }
 
     public Engine getEngine() {

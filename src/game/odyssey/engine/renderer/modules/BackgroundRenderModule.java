@@ -1,5 +1,7 @@
 package game.odyssey.engine.renderer.modules;
 
+import game.odyssey.engine.Engine;
+import game.odyssey.engine.Game;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Level;
 
@@ -13,6 +15,14 @@ public class BackgroundRenderModule extends RenderModule{
 
     @Override
     public void render(Graphics2D g2d) {
+        g2d.setPaint(((Level) getContext().get("LEVEL")).getBackground());
 
+        Engine engine = Game.getGameInstance().getEngine();
+
+        g2d.fillRect(0,
+                0,
+                (int) engine.GAME_WIDTH,
+                (int) engine.GAME_HEIGHT
+        );
     }
 }

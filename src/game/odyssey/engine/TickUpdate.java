@@ -32,9 +32,11 @@ public class TickUpdate implements Runnable
             if (timeDelta < NANO / TICK_RATE) continue;
             prevTime = current;
 
-            if (operation != null) {
-                operation.run();
-            }
+            try {
+                if (operation != null) {
+                    operation.run();
+                }
+            } catch (Exception ignored) {}
         }
 
     }

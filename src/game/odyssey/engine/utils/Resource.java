@@ -16,7 +16,7 @@ public class Resource implements Serializable {
     public static final boolean WIDTH = false;
     public static final boolean HEIGHT = true;
     public static ImageIcon resolve(String path) throws FileNotFoundException {
-        URL url = Resource.class.getClassLoader().getResource(path);
+        URL url = Resource.class.getResource("/" + path);
 
         if (url == null) throw new FileNotFoundException("Resource not found");
 

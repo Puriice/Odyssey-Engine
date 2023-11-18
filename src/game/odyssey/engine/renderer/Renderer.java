@@ -7,6 +7,8 @@ import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.registries.Register;
 import game.odyssey.engine.registries.RegistryObject;
 import game.odyssey.engine.renderer.modules.BackgroundRenderModule;
+import game.odyssey.engine.renderer.modules.Context;
+import game.odyssey.engine.renderer.modules.PlayerRenderModule;
 import game.odyssey.engine.renderer.modules.RenderModule;
 
 import java.awt.*;
@@ -14,8 +16,8 @@ import java.util.*;
 
 @SuppressWarnings("unused")
 public class Renderer {
-    public static final int TILE_PIXEL_WIDE = 16;
-    public static final int TILE_PIXEL_HEIGHT = 16;
+    public static final int TILE_PIXEL_WIDE = 32;
+    public static final int TILE_PIXEL_HEIGHT = 32;
     private static Thread renderThread;
     private static boolean isSetup = false;
     private static Level level;
@@ -29,6 +31,7 @@ public class Renderer {
         if (isSetup) return;
 
         modules.add(new BackgroundRenderModule());
+        modules.add(new PlayerRenderModule());
 
         TickUpdate tickUpdate = new TickUpdate(60);
 
@@ -56,12 +59,19 @@ public class Renderer {
         return null;
     }
 
+    public static void setLevel(Level level) {
+        Context.CONTEXT.set("LEVEL", level);
+        Renderer.level = level;
+    }
+
     public static void draw(Graphics2D g) {
         if (level == null) {
-            level = getEntryLevel();
+            setLevel(getEntryLevel());
         }
 
         if (level == null) return;
+        if (Game.getGameInstance() == null) return;
+        if (Game.getGameInstance().getPlayer() == null) return;
 
         modules.forEach(m -> {
             m.update(level, Game.getGameInstance().getPlayer());

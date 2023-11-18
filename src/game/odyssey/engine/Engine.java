@@ -1,10 +1,13 @@
 package game.odyssey.engine;
 
 import game.odyssey.engine.events.bus.IEventBus;
+import game.odyssey.engine.levels.Level;
+import game.odyssey.engine.registries.Register;
 import game.odyssey.engine.renderer.Renderer;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 @SuppressWarnings("FieldCanBeLocal")
 public class Engine extends JFrame {
@@ -35,9 +38,9 @@ public class Engine extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
 
-        this.setVisible(true);
-
         Renderer.setup();
+
+        this.setVisible(true);
     }
 
 
@@ -45,6 +48,11 @@ public class Engine extends JFrame {
         return null;
     }
 
+//    private void build() {
+//        Register<Level> levelRegister = Register.createRegister(Register.Type.LEVEL);
+//
+////        HashMap<String, Level> levels = levelRegister.query();
+//    }
 
     @Override
     public void paint(Graphics g) {

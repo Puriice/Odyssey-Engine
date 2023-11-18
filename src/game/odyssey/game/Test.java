@@ -13,7 +13,7 @@ public class Test {
 //    public static final RegistryObject<GameObject> DIRT  = objectRegister.enroll("dirt", GameObject::new);
     public static final RegistryObject<GameObject> BOOKSHELF = objectRegister.enroll("bookshelf", GameObject::new);
 
-    private static Register<Level> levelRegister = Register.createRegister(Register.Type.LEVEL);
+    private static final Register<Level> levelRegister = Register.createRegister(Register.Type.LEVEL);
 
     public static final RegistryObject<Level> TEST_LEVEL = levelRegister.enroll(() -> new TestLevel().setup());
 

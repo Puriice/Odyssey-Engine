@@ -5,18 +5,20 @@ import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.utils.Coordinate;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 public abstract class Level {
     private final ArrayList<Chunk> CHUNKS = new ArrayList<>();
-    private ImageIcon background;
+    private Color background = Color.BLACK;
     private ImageIcon map;
     private Coordinate pivot = Coordinate.ZERO;
     public Level() {
 
     }
 
-    protected void addChunk(Chunk chunk) {
+    protected void addChunk(Chunk chunk, int row, int column) {
+        chunk.setPosition(new Coordinate(column, row).readOnly());
         chunk.build();
         this.CHUNKS.add(chunk);
     }
@@ -25,11 +27,11 @@ public abstract class Level {
         return this.CHUNKS.toArray(new Chunk[0]);
     }
 
-    public ImageIcon getBackground() {
+    public Color getBackground() {
         return background;
     }
 
-    public void setBackground(ImageIcon background) {
+    public void setBackground(Color background) {
         this.background = background;
     }
 

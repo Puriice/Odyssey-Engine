@@ -22,6 +22,7 @@ public abstract class Chunk {
     private State state = State.GHOST;
     private final HashMap<String, ArrayList<Coordinate>> OBJECTS = new HashMap<>();
     private ImageIcon map;
+    private Coordinate position = Coordinate.ZERO;
 
     public State getState() {
         return state;
@@ -64,6 +65,14 @@ public abstract class Chunk {
 
     public void setMap(ImageIcon map) {
         this.map = map;
+    }
+
+    public Coordinate getPosition() {
+        return position;
+    }
+
+    void setPosition(Coordinate position) {
+        this.position = position;
     }
 
     protected void onStateChange() {};

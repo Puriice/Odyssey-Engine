@@ -1,5 +1,6 @@
 package game.odyssey.engine.registries;
 
+import game.odyssey.engine.Game;
 import game.odyssey.engine.Id;
 import game.odyssey.engine.levels.Chunk;
 import game.odyssey.engine.levels.Level;
@@ -41,6 +42,8 @@ public class Register<T> {
     public RegistryObject<T> enroll(String id, Supplier<T> supplier) {
         RegistryObject<T> toReturn = new RegistryObject<>(id, supplier);
 
+//        Object obj = supplier.get();
+//        if (obj instanceof Level lvl) lvl.onStart(Game.getGameInstance().getPlayer());
         REGISTRIES.put(id, toReturn);
 
         return toReturn;
