@@ -5,8 +5,9 @@ import game.odyssey.engine.utils.Coordinate;
 
 import javax.swing.*;
 
+@SuppressWarnings("unused")
 public abstract class Entity {
-    public static final int ENTITY_WIDTH = 32;
+    public static final int ENTITY_WIDTH = 48;
     public static final int ENTITY_HEIGHT = (int) (ENTITY_WIDTH * 1.5);
     public static final int MOVE_STATE_COUNT = 3;
     protected EntitySprite sprite;

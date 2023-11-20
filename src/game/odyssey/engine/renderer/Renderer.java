@@ -16,8 +16,8 @@ import java.util.*;
 
 @SuppressWarnings("unused")
 public class Renderer {
-    public static final int TILE_PIXEL_WIDE = 32;
-    public static final int TILE_PIXEL_HEIGHT = 32;
+    public static final int TILE_PIXEL_WIDE = 48;
+    public static final int TILE_PIXEL_HEIGHT = 48;
     private static Thread renderThread;
     private static boolean isSetup = false;
     private static Level level;

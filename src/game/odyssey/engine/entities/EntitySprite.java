@@ -18,11 +18,12 @@ public class EntitySprite {
         String gameId = Game.getGameInstance().GAME_ID;
         String template = gameId + "/assets/entities/" + entityId;
 
+        int w = Entity.ENTITY_WIDTH * Entity.MOVE_STATE_COUNT, h = Entity.ENTITY_HEIGHT;
         try {
-            SPRITE.put(NORTH, Resource.resolve(template + "/north.png"));
-            SPRITE.put(EAST, Resource.resolve(template + "/east.png"));
-            SPRITE.put(SOUTH, Resource.resolve(template + "/south.png"));
-            SPRITE.put(WEST, Resource.resolve(template + "/west.png"));
+            SPRITE.put(NORTH, new Resource(template + "/north.png").scale(w, h).getImageIcon());
+            SPRITE.put(EAST, new Resource(template + "/east.png").scale(w, h).getImageIcon());
+            SPRITE.put(SOUTH, new Resource(template + "/south.png").scale(w, h).getImageIcon());
+            SPRITE.put(WEST, new Resource(template + "/west.png").scale(w, h).getImageIcon());
         } catch (FileNotFoundException ignore) {
             System.out.println("Can not found sprite of " + entityId);
         }
