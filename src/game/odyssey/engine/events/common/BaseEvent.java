@@ -2,8 +2,6 @@ package game.odyssey.engine.events.common;
 
 import game.odyssey.engine.events.Event;
 
-import java.awt.event.KeyEvent;
-
 public class BaseEvent<T> extends Event {
     private final T result;
 
@@ -12,7 +10,8 @@ public class BaseEvent<T> extends Event {
         this.setCancelable(false);
     }
 
-    public T getKeyEvent() {
+    @SuppressWarnings("unused")
+    public T getResult() {
         return result;
     }
 }
