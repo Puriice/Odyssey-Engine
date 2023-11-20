@@ -1,11 +1,14 @@
 package game.odyssey.engine.levels;
 
 import game.odyssey.engine.common.Game;
+import game.odyssey.engine.common.Id;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.utils.Coordinate;
+import game.odyssey.engine.utils.Resource;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public abstract class Level {
@@ -36,11 +39,18 @@ public abstract class Level {
     }
 
     public ImageIcon getMap() {
-        return map;
+        try {
+            String levelId = getId();
+            return Resource.resolve("/" + Game.getGameInstance().GAME_ID + "/assets/levels/" + levelId + ".png");
+        } catch (FileNotFoundException e) {
+            return null;
+        }
     }
 
-    public void setMap(ImageIcon map) {
-        this.map = map;
+    private String getId() {
+        if (this.getClass().isAnnotationPresent(Id.class))
+            return this.getClass().getAnnotation(Id.class).value();
+        else return "";
     }
 
     protected void setMapPivotInPixel(Coordinate pivot) {

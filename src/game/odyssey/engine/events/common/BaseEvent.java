@@ -4,14 +4,14 @@ import game.odyssey.engine.events.Event;
 
 import java.awt.event.KeyEvent;
 
-public class BaseKeyEvent extends Event {
-    private final KeyEvent result;
+public class BaseEvent<T> extends Event {
+    private final T result;
 
-    public BaseKeyEvent(KeyEvent result) {
+    public BaseEvent(T result) {
         this.result = result;
     }
 
-    public KeyEvent getKeyEvent() {
+    public T getKeyEvent() {
         return result;
     }
 }

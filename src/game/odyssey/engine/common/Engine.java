@@ -2,18 +2,16 @@ package game.odyssey.engine.common;
 
 import game.odyssey.engine.entities.event.PlayerMoveEvent;
 import game.odyssey.engine.events.Event;
-import game.odyssey.engine.events.common.KeyPressEvent;
-import game.odyssey.engine.events.common.KeyReleaseEvent;
-import game.odyssey.engine.events.common.KeyTypeEvent;
+import game.odyssey.engine.events.common.*;
+import game.odyssey.engine.events.common.FocusEvent;
 import game.odyssey.engine.renderer.Renderer;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 @SuppressWarnings("FieldCanBeLocal")
-public class Engine extends JFrame implements KeyListener {
+public class Engine extends JFrame implements KeyListener, MouseListener {
     public static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
     public static final int SCREEN_WIDTH = gd.getDisplayMode().getWidth();
     public static final int SCREEN_HEIGHT = gd.getDisplayMode().getHeight();
@@ -23,6 +21,12 @@ public class Engine extends JFrame implements KeyListener {
         Event.createEvent(KeyReleaseEvent.class);
         Event.createEvent(KeyTypeEvent.class);
         Event.createEvent(PlayerMoveEvent.class);
+
+        Event.createEvent(MousePressEvent.class);
+        Event.createEvent(MouseReleaseEvent.class);
+        Event.createEvent(MouseClickEvent.class);
+        Event.createEvent(FocusEvent.class);
+        Event.createEvent(BlurEvent.class);
     }
 
     public final double GAME_WIDTH;
@@ -55,6 +59,7 @@ public class Engine extends JFrame implements KeyListener {
         this.SERVER_THREAD.start();
 
         this.addKeyListener(this);
+        this.addMouseListener(this);
 
         this.setVisible(true);
     }
@@ -78,5 +83,30 @@ public class Engine extends JFrame implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         new KeyReleaseEvent(e).dispatch();
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        new MouseClickEvent(e).dispatch();
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        new MousePressEvent(e).dispatch();
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        new MouseReleaseEvent(e).dispatch();
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        new FocusEvent(e).dispatch();
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        new BlurEvent(e).dispatch();
     }
 }
