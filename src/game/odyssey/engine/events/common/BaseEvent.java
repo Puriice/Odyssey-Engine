@@ -9,6 +9,7 @@ public class BaseEvent<T> extends Event {
 
     public BaseEvent(T result) {
         this.result = result;
+        this.setCancelable(false);
     }
 
     public T getKeyEvent() {
