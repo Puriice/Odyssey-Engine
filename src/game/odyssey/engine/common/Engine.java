@@ -16,18 +16,6 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
     public static final int SCREEN_WIDTH = gd.getDisplayMode().getWidth();
     public static final int SCREEN_HEIGHT = gd.getDisplayMode().getHeight();
 
-    private static void setupCommonEvent() {
-        Event.createEvent(KeyPressEvent.class);
-        Event.createEvent(KeyReleaseEvent.class);
-        Event.createEvent(KeyTypeEvent.class);
-        Event.createEvent(PlayerMoveEvent.class);
-
-        Event.createEvent(MousePressEvent.class);
-        Event.createEvent(MouseReleaseEvent.class);
-        Event.createEvent(MouseClickEvent.class);
-        Event.createEvent(FocusEvent.class);
-        Event.createEvent(BlurEvent.class);
-    }
 
     public final double GAME_WIDTH;
     public final double GAME_HEIGHT;
@@ -53,7 +41,7 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
 
-        Engine.setupCommonEvent();
+        Event.setupCommonEvent();
 
         Renderer.setup();
         this.SERVER_THREAD.start();

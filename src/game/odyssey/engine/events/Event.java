@@ -1,5 +1,8 @@
 package game.odyssey.engine.events;
 
+import game.odyssey.engine.entities.event.PlayerMoveEvent;
+import game.odyssey.engine.events.common.*;
+
 import java.util.*;
 import java.util.function.Consumer;
 
@@ -7,6 +10,18 @@ import java.util.function.Consumer;
 public abstract class Event {
     private static final HashMap<Class<?>, ArrayList<Consumer<Event>>> LISTENER = new HashMap<>();
 //    private static final Queue<Event> QUEUE = new LinkedList<>();
+    public static void setupCommonEvent() {
+        Event.createEvent(KeyPressEvent.class);
+        Event.createEvent(KeyReleaseEvent.class);
+        Event.createEvent(KeyTypeEvent.class);
+        Event.createEvent(PlayerMoveEvent.class);
+
+        Event.createEvent(MousePressEvent.class);
+        Event.createEvent(MouseReleaseEvent.class);
+        Event.createEvent(MouseClickEvent.class);
+        Event.createEvent(FocusEvent.class);
+        Event.createEvent(BlurEvent.class);
+    }
     public static <T extends Event> void createEvent(Class<T> event) {
         if (LISTENER.containsKey(event)) return;
 
