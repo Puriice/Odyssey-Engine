@@ -82,4 +82,20 @@ public abstract class Entity {
     public Coordinate getPosition() {
         return position;
     }
+
+    protected void moveUp() {
+        facing = Direction.NORTH;
+    }
+
+    protected void moveRight() {
+        facing = Direction.EAST;
+    }
+
+    protected void moveDown() {
+        facing = Direction.SOUTH;
+    }
+
+    protected void moveLeft() {
+        facing = Direction.WEST;
+    }
 }

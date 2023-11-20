@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-@SuppressWarnings("FieldCanBeLocal")
+@SuppressWarnings({"FieldCanBeLocal", "unused"})
 public class Engine extends JFrame implements KeyListener, MouseListener {
     public static GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
     public static final int SCREEN_WIDTH = gd.getDisplayMode().getWidth();
@@ -65,7 +65,7 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
     @Override
     public void keyPressed(KeyEvent e) {
         new KeyPressEvent(e).dispatch();
-        new PlayerMoveEvent(e).dispatch(System.out::println);
+        new PlayerMoveEvent(e).dispatch();
     }
 
     @Override
