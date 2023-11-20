@@ -1,7 +1,6 @@
 package game.odyssey.engine.registries;
 
-import game.odyssey.engine.Game;
-import game.odyssey.engine.Id;
+import game.odyssey.engine.common.Id;
 import game.odyssey.engine.levels.Chunk;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.objects.GameObject;

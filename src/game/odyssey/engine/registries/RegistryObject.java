@@ -1,6 +1,6 @@
 package game.odyssey.engine.registries;
 
-import game.odyssey.engine.Game;
+import game.odyssey.engine.common.Game;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.objects.GameObject;
 

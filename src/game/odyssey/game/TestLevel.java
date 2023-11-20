@@ -1,6 +1,6 @@
 package game.odyssey.game;
 
-import game.odyssey.engine.Id;
+import game.odyssey.engine.common.Id;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Chunk;
 import game.odyssey.engine.levels.Entry;

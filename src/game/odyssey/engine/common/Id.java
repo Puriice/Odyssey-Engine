@@ -1,4 +1,4 @@
-package game.odyssey.engine;
+package game.odyssey.engine.common;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

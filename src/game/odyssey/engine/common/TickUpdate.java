@@ -1,4 +1,4 @@
-package game.odyssey.engine;
+package game.odyssey.engine.common;
 
 public class TickUpdate implements Runnable
 {

@@ -1,7 +1,6 @@
-package game.odyssey.engine;
+package game.odyssey.engine.common;
 
 import game.odyssey.engine.entities.Player;
-import game.odyssey.engine.events.bus.IEventBus;
 
 import java.io.File;
 import java.io.IOException;
@@ -24,16 +23,12 @@ public class Game {
     public Game(String gameTitle, String gameId) {
         this.GAME_TITLE = gameTitle;
         this.GAME_ID = gameId;
-        this.player = new Player();
         Game.engine = new Engine(this.GAME_TITLE);
+        this.player = new Player();
     }
 
     public Engine getEngine() {
         return engine;
-    }
-
-    public IEventBus getEventBus() {
-        return engine.getEventBus();
     }
 
     public Player getPlayer() {
@@ -53,9 +48,9 @@ public class Game {
 
         if (gameName.isEmpty()) gameName = gameId;
 
-        aClass.getDeclaredConstructor().newInstance();
-
         Game.game =  new Game(gameName, gameId.toLowerCase());
+
+        aClass.getDeclaredConstructor().newInstance();
     }
 
     private static Class<?> scanClassWithAnnotation() {
@@ -82,6 +77,7 @@ public class Game {
                         // Check if the class has the specified annotation
                         if (clazz.isAnnotationPresent(Id.class)) {
                             return classLoader.loadClass(className);
+//                            return clazz;
                         }
                     }
                 }

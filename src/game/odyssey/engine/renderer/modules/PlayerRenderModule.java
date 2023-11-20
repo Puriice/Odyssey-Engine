@@ -1,13 +1,12 @@
 package game.odyssey.engine.renderer.modules;
 
-import game.odyssey.engine.Game;
+import game.odyssey.engine.common.Game;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.renderer.Renderer;
 import game.odyssey.engine.utils.Coordinate;
 
 import java.awt.*;
-import java.io.FileNotFoundException;
 
 public class PlayerRenderModule extends RenderModule{
     @Override

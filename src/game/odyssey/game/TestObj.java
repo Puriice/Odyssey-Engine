@@ -1,6 +1,6 @@
 package game.odyssey.game;
 
-import game.odyssey.engine.Id;
+import game.odyssey.engine.common.Id;
 import game.odyssey.engine.objects.GameObject;
 
 @Id("stone")

@@ -1,6 +1,6 @@
 package game.odyssey.engine.levels;
 
-import game.odyssey.engine.Game;
+import game.odyssey.engine.common.Game;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.utils.Coordinate;
 

@@ -1,6 +1,6 @@
 package game.odyssey.engine.utils;
 
-import game.odyssey.engine.Game;
+import game.odyssey.engine.common.Game;
 
 import javax.swing.*;
 import java.awt.*;

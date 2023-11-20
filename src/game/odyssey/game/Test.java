@@ -1,6 +1,8 @@
 package game.odyssey.game;
 
-import game.odyssey.engine.Id;
+import game.odyssey.engine.common.Id;
+import game.odyssey.engine.entities.event.PlayerMoveEvent;
+import game.odyssey.engine.events.Event;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.objects.GameObject;
 import game.odyssey.engine.registries.Register;
@@ -18,6 +20,10 @@ public class Test {
     public static final RegistryObject<Level> TEST_LEVEL = levelRegister.enroll(() -> new TestLevel().setup());
 
     public Test() {
+        Event.addListener(PlayerMoveEvent.class, this::listener);
+    }
 
+    private void listener(PlayerMoveEvent playerMoveEvent) {
+        System.out.println("Event trigger 2");
     }
 }

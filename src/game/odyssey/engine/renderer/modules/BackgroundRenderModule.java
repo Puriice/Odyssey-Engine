@@ -1,7 +1,7 @@
 package game.odyssey.engine.renderer.modules;
 
-import game.odyssey.engine.Engine;
-import game.odyssey.engine.Game;
+import game.odyssey.engine.common.Engine;
+import game.odyssey.engine.common.Game;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Level;
 

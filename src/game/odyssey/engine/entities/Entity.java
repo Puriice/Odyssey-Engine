@@ -1,6 +1,6 @@
 package game.odyssey.engine.entities;
 
-import game.odyssey.engine.Id;
+import game.odyssey.engine.common.Id;
 import game.odyssey.engine.utils.Coordinate;
 
 import javax.swing.*;
@@ -76,5 +76,9 @@ public abstract class Entity {
 
     public int getMoveState() {
         return moveState;
+    }
+
+    public Coordinate getPosition() {
+        return position;
     }
 }

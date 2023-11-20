@@ -1,7 +1,7 @@
 package game.odyssey.engine.renderer;
 
-import game.odyssey.engine.Game;
-import game.odyssey.engine.TickUpdate;
+import game.odyssey.engine.common.Game;
+import game.odyssey.engine.common.TickUpdate;
 import game.odyssey.engine.levels.Entry;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.registries.Register;
