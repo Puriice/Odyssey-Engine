@@ -34,6 +34,7 @@ public abstract class Chunk {
 
     void update(State state) {
         this.state = state;
+        onStateChange();
     }
 
     public void addObject(String objectId, Coordinate... position) {
