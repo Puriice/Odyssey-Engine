@@ -16,7 +16,6 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
     public static final int SCREEN_WIDTH = gd.getDisplayMode().getWidth();
     public static final int SCREEN_HEIGHT = gd.getDisplayMode().getHeight();
 
-
     public final double GAME_WIDTH;
     public final double GAME_HEIGHT;
     private final Component CONTENT_PANE;
@@ -29,7 +28,6 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
         this.TICK_UPDATER = new TickUpdate(20);
         this.SERVER_THREAD = new Thread(this.TICK_UPDATER);
 
-//        this.TICK_UPDATER.perform(this::cycle);
         this.setSize(Engine.SCREEN_WIDTH, Engine.SCREEN_HEIGHT);
         this.setResizable(false);
 

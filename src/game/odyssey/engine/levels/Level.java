@@ -65,9 +65,12 @@ public abstract class Level {
         this.onLeave(Game.getGameInstance().getPlayer());
     }
 
+    // on Register
     public abstract void onStart(Player player);
 
+    // everytime appear on screen
     public abstract void onUpdate(Player player, Coordinate playerPosition);
 
+    // everytime disappear on screen
     public abstract void onLeave(Player player);
 }

@@ -7,6 +7,8 @@ import game.odyssey.engine.levels.Entry;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.utils.Coordinate;
 
+import java.awt.*;
+
 @Id("levelone")
 @Entry
 public class TestLevel extends Level {
@@ -28,6 +30,7 @@ public class TestLevel extends Level {
             }
         }, 0, 0);
 
+//        this.setBackground(Color.BLUE);
         return this;
     }
 
