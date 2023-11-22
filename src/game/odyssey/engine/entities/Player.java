@@ -29,12 +29,12 @@ public class Player extends Entity {
 
     }
     private void listener(PlayerMoveEvent event) {
-        char up = InputConfig.player.getKey(new Action(Action.Player.MOVE_UP)).getKeyChar();
-        char right = InputConfig.player.getKey(new Action(Action.Player.MOVE_RIGHT)).getKeyChar();
-        char down = InputConfig.player.getKey(new Action(Action.Player.MOVE_DOWN)).getKeyChar();
-        char left = InputConfig.player.getKey(new Action(Action.Player.MOVE_LEFT)).getKeyChar();
-        char interaction = InputConfig.player.getKey(new Action(Action.Player.INTERACT)).getKeyChar();
-        char cancel = InputConfig.player.getKey(new Action(Action.Player.CANCEL)).getKeyChar();
+        char up = event.getKeyConfig(Action.Player.MOVE_UP);
+        char right = event.getKeyConfig(Action.Player.MOVE_RIGHT);
+        char down = event.getKeyConfig(Action.Player.MOVE_DOWN);
+        char left = event.getKeyConfig(Action.Player.MOVE_LEFT);
+        char interaction = event.getKeyConfig(Action.Player.INTERACT);
+        char cancel = event.getKeyConfig(Action.Player.CANCEL);
 
         char result = event.getResult().getKeyChar();
 
