@@ -54,8 +54,6 @@ public class LevelRenderModule extends RenderModule {
         if (Double.compare(visualPosition.getX(), position.getX()) == 0) dx = 0;
         if (Double.compare(visualPosition.getY(), position.getY()) == 0) dy = 0;
 
-//        System.out.println("visualPosition = " + visualPosition); System.out.println("position = " + position);
-
         if (position.floorEqual(visualPosition)) {
             animationTick.perform(null);
             visualPosition.move(position);
@@ -101,8 +99,6 @@ public class LevelRenderModule extends RenderModule {
             }
             visualPosition.move(x, y);
 
-//            player.nextMoveState();
-
             g2d.drawImage(
                     imageIcon.getImage(), -visualPosition.getIntX(), visualPosition.getIntY(), null
             );
@@ -136,9 +132,4 @@ public class LevelRenderModule extends RenderModule {
             this.y = 0;
         }
     }
-
-//
-//    private double calculateLinearSpline(double m, double x0, double x) {
-//        return m * (x - x0);
-//    }
 }
