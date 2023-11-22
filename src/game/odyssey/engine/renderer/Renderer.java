@@ -2,14 +2,13 @@ package game.odyssey.engine.renderer;
 
 import game.odyssey.engine.common.Game;
 import game.odyssey.engine.common.TickUpdate;
+import game.odyssey.engine.events.Event;
+import game.odyssey.engine.events.common.GameLoadingEvent;
 import game.odyssey.engine.levels.Entry;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.registries.Register;
 import game.odyssey.engine.registries.RegistryObject;
-import game.odyssey.engine.renderer.modules.BackgroundRenderModule;
-import game.odyssey.engine.renderer.modules.Context;
-import game.odyssey.engine.renderer.modules.PlayerRenderModule;
-import game.odyssey.engine.renderer.modules.RenderModule;
+import game.odyssey.engine.renderer.modules.*;
 
 import java.awt.*;
 import java.util.*;
@@ -31,6 +30,7 @@ public class Renderer {
         if (isSetup) return;
 
         modules.add(new BackgroundRenderModule());
+        modules.add(new LevelRenderModule());
         modules.add(new PlayerRenderModule());
 
         TickUpdate tickUpdate = new TickUpdate(60);
@@ -39,7 +39,7 @@ public class Renderer {
 
         renderThread = new Thread(tickUpdate);
 
-        renderThread.start();
+        Event.addListener(GameLoadingEvent.class, Renderer::listener);
 
         isSetup = true;
     }
@@ -52,6 +52,7 @@ public class Renderer {
         for (Map.Entry<String, RegistryObject<Level>> entry : levels.entrySet()) {
             Level level = entry.getValue().get();
             if (level.getClass().isAnnotationPresent(Entry.class)) {
+                level.onStart(Game.getGameInstance().getPlayer());
                 return level;
             }
         }
@@ -60,15 +61,11 @@ public class Renderer {
     }
 
     public static void setLevel(Level level) {
-        Context.CONTEXT.set("LEVEL", level);
+        Context.CONTEXT.set(Context.Common.LEVEL, level);
         Renderer.level = level;
     }
 
     public static void draw(Graphics2D g) {
-        if (level == null) {
-            setLevel(getEntryLevel());
-        }
-
         if (level == null) return;
         if (Game.getGameInstance() == null) return;
         if (Game.getGameInstance().getPlayer() == null) return;
@@ -77,5 +74,10 @@ public class Renderer {
             m.update(level, Game.getGameInstance().getPlayer());
             m.render(g);
         });
+    }
+
+    private static void listener(GameLoadingEvent event) {
+        setLevel(getEntryLevel());
+        renderThread.start();
     }
 }

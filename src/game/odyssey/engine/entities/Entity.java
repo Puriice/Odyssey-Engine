@@ -11,7 +11,7 @@ public abstract class Entity {
     public static final int ENTITY_HEIGHT = (int) (ENTITY_WIDTH * 1.5);
     public static final int MOVE_STATE_COUNT = 3;
     protected EntitySprite sprite;
-    protected Coordinate position;
+    protected Coordinate position = new Coordinate();
     protected Direction facing = Direction.NORTH;
     protected float hp = 100.0F;
     protected float atkDamage = 1.0F;
@@ -68,7 +68,7 @@ public abstract class Entity {
     }
 
     public void nextMoveState() {
-        if (moveState >= MOVE_STATE_COUNT) {
+        if (moveState >= MOVE_STATE_COUNT - 1) {
             moveState = 0;
         } else {
             moveState++;
@@ -79,23 +79,38 @@ public abstract class Entity {
         return moveState;
     }
 
+    public void resetMoveState() {
+        moveState = 0;
+    }
+
     public Coordinate getPosition() {
         return position;
     }
 
+    protected void move(Coordinate position) {
+        this.position.move(position);
+    }
+
+    protected void move(double dx, double dy) {
+        this.position.move(dx, dy);
+    }
     protected void moveUp() {
         facing = Direction.NORTH;
+        this.position.translate(0,1);
     }
 
     protected void moveRight() {
         facing = Direction.EAST;
+        this.position.translate(1, 0);
     }
 
     protected void moveDown() {
         facing = Direction.SOUTH;
+        this.position.translate(0, -1);
     }
 
     protected void moveLeft() {
         facing = Direction.WEST;
+        this.position.translate(-1, 0);
     }
 }

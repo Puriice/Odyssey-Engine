@@ -21,6 +21,8 @@ public abstract class Event {
         Event.createEvent(MouseClickEvent.class);
         Event.createEvent(FocusEvent.class);
         Event.createEvent(BlurEvent.class);
+
+        Event.createEvent(GameLoadingEvent.class);
     }
     public static <T extends Event> void createEvent(Class<T> event) {
         if (LISTENER.containsKey(event)) return;

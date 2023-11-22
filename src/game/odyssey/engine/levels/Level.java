@@ -11,11 +11,13 @@ import java.awt.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
+@SuppressWarnings("unused")
 public abstract class Level {
     private final ArrayList<Chunk> CHUNKS = new ArrayList<>();
     private Color background = Color.BLACK;
     private ImageIcon map;
     private Coordinate pivot = Coordinate.ZERO;
+    private Coordinate visualPosition = Coordinate.ZERO;
     public Level() {
 
     }
@@ -40,8 +42,11 @@ public abstract class Level {
 
     public ImageIcon getMap() {
         try {
-            String levelId = getId();
-            return Resource.resolve("/" + Game.getGameInstance().GAME_ID + "/assets/levels/" + levelId + ".png");
+            if (map == null) {
+                String levelId = getId();
+                map = Resource.resolve(Game.getGameInstance().GAME_ID + "/assets/levels/" + levelId + ".png");
+            }
+            return map;
         } catch (FileNotFoundException e) {
             return null;
         }
@@ -57,8 +62,20 @@ public abstract class Level {
         this.pivot = pivot;
     }
 
+    protected void setMapPivotInPixel(double x, double y) {
+        this.pivot = new Coordinate(x, y);
+    }
+
     public Coordinate getPivot() {
         return this.pivot;
+    }
+
+    public Coordinate getPosition() {
+        return visualPosition;
+    }
+
+    public void setPosition(Coordinate visualPosition) {
+        this.visualPosition = visualPosition;
     }
 
     protected void navigate() {

@@ -1,6 +1,7 @@
 package game.odyssey.engine.common;
 
 import game.odyssey.engine.entities.Player;
+import game.odyssey.engine.events.common.GameLoadingEvent;
 
 import java.io.File;
 import java.io.IOException;
@@ -51,6 +52,8 @@ public class Game {
         Game.game =  new Game(gameName, gameId.toLowerCase());
 
         aClass.getDeclaredConstructor().newInstance();
+
+        new GameLoadingEvent().dispatch();
     }
 
     private static Class<?> scanClassWithAnnotation() {

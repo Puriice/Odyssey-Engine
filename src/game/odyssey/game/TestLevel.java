@@ -7,12 +7,12 @@ import game.odyssey.engine.levels.Entry;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.utils.Coordinate;
 
-import java.awt.*;
-
-@Id("levelone")
 @Entry
+@Id("levelone")
 public class TestLevel extends Level {
-    public Level setup() {
+    @Override
+    public void onStart(Player player) {
+        this.setMapPivotInPixel(new Coordinate(24, 0));
         this.addChunk(new Chunk() {
             @Override
             protected void build() {
@@ -31,12 +31,6 @@ public class TestLevel extends Level {
         }, 0, 0);
 
 //        this.setBackground(Color.BLUE);
-        return this;
-    }
-
-    @Override
-    public void onStart(Player player) {
-
     }
 
     @Override

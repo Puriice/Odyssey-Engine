@@ -43,6 +43,10 @@ public class Coordinate {
         return x;
     }
 
+    public int getIntX() {
+        return (int) x;
+    }
+
     public void setX(double x) {
         if (isReadOnly) return;
         this.x = x;
@@ -50,6 +54,10 @@ public class Coordinate {
 
     public double getY() {
         return y;
+    }
+
+    public int getIntY() {
+        return (int) y;
     }
 
     public void setY(double y) {
@@ -104,6 +112,14 @@ public class Coordinate {
         if (o == null || getClass() != o.getClass()) return false;
         Coordinate that = (Coordinate) o;
         return Double.compare(x, that.x) == 0 && Double.compare(y, that.y) == 0;
+    }
+
+    public boolean floorEqual(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinate that = (Coordinate) o;
+        return Double.compare(Math.floor(x), Math.floor(that.x)) == 0
+                        && Double.compare(Math.floor(y), Math.floor(that.y)) == 0;
     }
 
     @Override
