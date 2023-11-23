@@ -1,4 +1,4 @@
-package game.odyssey.engine.renderer.modules;
+package game.odyssey.engine.renderer;
 
 import game.odyssey.engine.utils.Coordinate;
 
@@ -19,7 +19,7 @@ public class Context {
             return key;
         }
     }
-    static final Context CONTEXT = new Context();
+    public static final Context CONTEXT = new Context();
     private final HashMap<String, Object> data = new HashMap<>();
 
     public Context() {

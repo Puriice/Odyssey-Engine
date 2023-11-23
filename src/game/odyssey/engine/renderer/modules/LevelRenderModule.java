@@ -5,9 +5,9 @@ import game.odyssey.engine.common.TickUpdate;
 import game.odyssey.engine.entities.Entity;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Level;
+import game.odyssey.engine.renderer.Context;
 import game.odyssey.engine.renderer.Renderer;
 import game.odyssey.engine.utils.Coordinate;
-import game.odyssey.engine.utils.Timer;
 
 import javax.swing.*;
 import java.awt.*;

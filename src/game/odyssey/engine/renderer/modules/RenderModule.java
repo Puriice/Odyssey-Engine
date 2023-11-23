@@ -2,6 +2,7 @@ package game.odyssey.engine.renderer.modules;
 
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Level;
+import game.odyssey.engine.renderer.Context;
 
 import java.awt.*;
 
