@@ -7,6 +7,7 @@ import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.renderer.Renderer;
 import game.odyssey.engine.utils.Coordinate;
+import game.odyssey.engine.utils.Timer;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,19 +18,13 @@ public class LevelRenderModule extends RenderModule {
     private double dy = 0;
     private int x = 0, y = 0;
     private final TickUpdate animationTick = new TickUpdate(18);
-    private boolean isSetup = false;
 
-
-    private void setup() {
-        if (isSetup) return;
-
+    public LevelRenderModule() {
         new Thread(animationTick).start();
-
-        isSetup = true;
     }
+
     @Override
     public void update(Level level, Player player) {
-        setup();
     }
     @Override
     public void render(Graphics2D g2d) {
@@ -54,16 +49,16 @@ public class LevelRenderModule extends RenderModule {
         if (Double.compare(visualPosition.getX(), position.getX()) == 0) dx = 0;
         if (Double.compare(visualPosition.getY(), position.getY()) == 0) dy = 0;
 
+        g2d.drawImage(
+                imageIcon.getImage(), -visualPosition.getIntX(), visualPosition.getIntY(), null
+        );
+
         if (position.floorEqual(visualPosition)) {
             animationTick.perform(null);
             visualPosition.move(position);
             dx = dy = x = y = 0;
 
             player.resetMoveState();
-
-            g2d.drawImage(
-                    imageIcon.getImage(), -position.getIntX(), position.getIntY(), null
-            );
         } else {
             animationTick.perform(player::nextMoveState);
 
@@ -98,12 +93,7 @@ public class LevelRenderModule extends RenderModule {
                 y = y1;
             }
             visualPosition.move(x, y);
-
-            g2d.drawImage(
-                    imageIcon.getImage(), -visualPosition.getIntX(), visualPosition.getIntY(), null
-            );
         }
-
     }
 
     private double calculateLinearInterpolation(double m, double x1, double y1, double x) {

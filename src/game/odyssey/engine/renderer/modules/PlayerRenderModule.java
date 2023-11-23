@@ -25,7 +25,6 @@ public class PlayerRenderModule extends RenderModule{
         Player player = Game.getGameInstance().getPlayer();
 
         try {
-
             g2d.drawImage(
                     player.getSprite().getImage(),
                     (int) -center.getX(),

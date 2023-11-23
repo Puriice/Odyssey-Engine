@@ -12,7 +12,7 @@ public abstract class Entity {
     public static final int MOVE_STATE_COUNT = 3;
     protected EntitySprite sprite;
     protected Coordinate position = new Coordinate();
-    protected Direction facing = Direction.NORTH;
+    protected Direction[] facing = new Direction[]{ Direction.NORTH, Direction.NORTH };
     protected float hp = 100.0F;
     protected float atkDamage = 1.0F;
     protected float defensePoint = 0.0F;
@@ -32,7 +32,7 @@ public abstract class Entity {
             sprite = new EntitySprite(this.getClass().getAnnotation(Id.class).value());
         }
 
-        return sprite.getSprite().get(facing);
+        return sprite.getSprite().get(facing[0]);
     }
 
     public float getHp() {
@@ -87,6 +87,13 @@ public abstract class Entity {
         return position;
     }
 
+    public void setFacing(Direction facing) {
+        this.facing = new Direction[] { facing, facing };
+    }
+    public void setFacing(Direction facing1, Direction facing2) {
+        this.facing = new Direction[] { facing1, facing2 };
+    }
+
     protected void move(Coordinate position) {
         this.position.move(position);
     }
@@ -94,23 +101,49 @@ public abstract class Entity {
     protected void move(double dx, double dy) {
         this.position.move(dx, dy);
     }
+
+    protected void moveBy(Coordinate position) {
+        this.moveBy(position.getX(), position.getY());
+    }
+
+    protected void moveBy(double dx, double dy) {
+        this.position.translate(dx, dy);
+
+        if (dx > 0 && dy == 0) {
+            setFacing(Direction.EAST);
+        } else if (dx < 0 && dy == 0) {
+            setFacing(Direction.WEST);
+        } else if (dx == 0 && dy > 0) {
+            setFacing(Direction.NORTH);
+        } else if (dx == 0 && dy < 0) {
+            setFacing(Direction.SOUTH);
+        } else if (dx > 0 && dy > 0) {
+            setFacing(Direction.NORTH, Direction.EAST);
+        } else if (dx > 0 && dy < 0) {
+            setFacing(Direction.SOUTH, Direction.EAST);
+        } else if (dx < 0 && dy > 0) {
+            setFacing(Direction.NORTH, Direction.WEST);
+        } else if (dx < 0 && dy < 0) {
+            setFacing(Direction.SOUTH, Direction.WEST);
+        }
+    }
     protected void moveUp() {
-        facing = Direction.NORTH;
+        setFacing(Direction.NORTH);
         this.position.translate(0,1);
     }
 
     protected void moveRight() {
-        facing = Direction.EAST;
+        setFacing(Direction.EAST);
         this.position.translate(1, 0);
     }
 
     protected void moveDown() {
-        facing = Direction.SOUTH;
+        setFacing(Direction.SOUTH);
         this.position.translate(0, -1);
     }
 
     protected void moveLeft() {
-        facing = Direction.WEST;
+        setFacing(Direction.WEST);
         this.position.translate(-1, 0);
     }
 }

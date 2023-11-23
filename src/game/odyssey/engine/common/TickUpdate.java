@@ -1,5 +1,6 @@
 package game.odyssey.engine.common;
 
+@SuppressWarnings("unused")
 public class TickUpdate implements Runnable
 {
 //    public static final int TICK_RATE = 20;
@@ -36,7 +37,9 @@ public class TickUpdate implements Runnable
                 if (operation != null) {
                     operation.run();
                 }
-            } catch (Exception ignored) {}
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
     }

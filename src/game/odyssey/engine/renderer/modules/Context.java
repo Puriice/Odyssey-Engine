@@ -4,7 +4,7 @@ import game.odyssey.engine.utils.Coordinate;
 
 import java.util.HashMap;
 
-
+@SuppressWarnings("unused")
 public class Context {
     public enum Common {
         LEVEL("LEVEL"),
@@ -19,7 +19,7 @@ public class Context {
             return key;
         }
     }
-    public static final Context CONTEXT = new Context();
+    static final Context CONTEXT = new Context();
     private final HashMap<String, Object> data = new HashMap<>();
 
     public Context() {

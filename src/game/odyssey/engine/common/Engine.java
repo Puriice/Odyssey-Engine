@@ -62,13 +62,16 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
+        PlayerMoveEvent.setDirection(e);
         new KeyPressEvent(e).dispatch();
         new PlayerMoveEvent(e).dispatch();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
+        PlayerMoveEvent.removeDirection(e);
         new KeyReleaseEvent(e).dispatch();
+        new PlayerMoveEvent(e).dispatch();
     }
 
     @Override
