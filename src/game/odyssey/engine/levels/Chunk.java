@@ -43,6 +43,9 @@ public abstract class Chunk {
             this.OBJECTS.put(objectId, new ArrayList<>(List.of(position)));
         } else {
             for (Coordinate pos: position) {
+                if (pos.getX() > Chunk.CHUNK_TILE_WIDTH || pos.getX() < 0|| pos.getY() > Chunk.CHUNK_TILE_HEIGHT || pos.getY() < 0) {
+                    System.out.println("Object is outside of Chunk");
+                }
                 if (isOverlap(pos)) throw new IllegalArgumentException("Object is overlap with another object");
 
                 this.OBJECTS.get(objectId).add(pos);
@@ -65,6 +68,7 @@ public abstract class Chunk {
     }
 
     public ImageIcon getMap() {
+        if (map != null) return map;
         try {
             String chunkId = getId();
             return Resource.resolve("/" + Game.getGameInstance().GAME_ID + "/assets/chunks/" + chunkId + ".png");
@@ -90,7 +94,7 @@ public abstract class Chunk {
         this.position = position;
     }
 
-    protected void onStateChange() {};
+    protected void onStateChange() {}
     protected abstract void build();
     protected abstract void start(Player player, Coordinate playerCoordinate);
     protected abstract void destroy(Player player, Coordinate playerCoordinate);

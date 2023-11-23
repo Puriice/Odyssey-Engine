@@ -16,7 +16,7 @@ public class TestLevel extends Level {
         this.addChunk(new Chunk() {
             @Override
             protected void build() {
-                this.addObject("bookshelf", new Coordinate(0,0));
+                this.addObject("bookshelf", new Coordinate(1,1));
             }
 
             @Override
@@ -28,7 +28,7 @@ public class TestLevel extends Level {
             protected void destroy(Player player, Coordinate playerCoordinate) {
 
             }
-        }, 0, 0);
+        }, 1, 1);
 
 //        this.setBackground(Color.BLUE);
     }

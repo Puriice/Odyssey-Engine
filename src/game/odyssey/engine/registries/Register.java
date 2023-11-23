@@ -51,4 +51,7 @@ public class Register<T> {
     public HashMap<String, RegistryObject<T>> query() {
         return REGISTRIES;
     }
+    public RegistryObject<T> query(String key) {
+        return REGISTRIES.get(key);
+    }
 }

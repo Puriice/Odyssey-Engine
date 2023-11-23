@@ -15,7 +15,7 @@ import java.util.*;
 
 @SuppressWarnings("unused")
 public class Renderer {
-    public static final int TILE_PIXEL_WIDE = 48;
+    public static final int TILE_PIXEL_WIDTH = 48;
     public static final int TILE_PIXEL_HEIGHT = 48;
     private static Thread renderThread;
     private static boolean isSetup = false;
@@ -31,6 +31,7 @@ public class Renderer {
 
         modules.add(new BackgroundRenderModule());
         modules.add(new LevelRenderModule());
+        modules.add(new ObjectRenderModule());
         modules.add(new PlayerRenderModule());
 
         TickUpdate tickUpdate = new TickUpdate(60);
@@ -70,10 +71,14 @@ public class Renderer {
         if (Game.getGameInstance() == null) return;
         if (Game.getGameInstance().getPlayer() == null) return;
 
-        modules.forEach(m -> {
-            m.update(level, Game.getGameInstance().getPlayer());
-            m.render(g);
-        });
+//        modules.forEach(m -> {
+//            m.update(level, Game.getGameInstance().getPlayer());
+//            m.render(g);
+//        });
+        for (RenderModule module: modules) {
+            module.update(level, Game.getGameInstance().getPlayer());
+            module.render(g);
+        }
     }
 
     private static void listener(GameLoadingEvent event) {

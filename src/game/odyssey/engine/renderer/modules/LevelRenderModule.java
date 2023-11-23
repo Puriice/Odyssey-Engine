@@ -41,7 +41,7 @@ public class LevelRenderModule extends RenderModule {
         Coordinate position  = new Coordinate();
         Coordinate visualPosition = (Coordinate) getContext().get(Context.Common.VISUAL);
 
-        position.setX(pivot.getX() + playerPosition.getX() * Renderer.TILE_PIXEL_WIDE);
+        position.setX(pivot.getX() + playerPosition.getX() * Renderer.TILE_PIXEL_WIDTH);
         position.setY(pivot.getY() + playerPosition.getY() * Renderer.TILE_PIXEL_HEIGHT);
 
         if (visualPosition.equals(Coordinate.ZERO)) visualPosition.move(position);
@@ -49,11 +49,8 @@ public class LevelRenderModule extends RenderModule {
         if (Double.compare(visualPosition.getX(), position.getX()) == 0) dx = 0;
         if (Double.compare(visualPosition.getY(), position.getY()) == 0) dy = 0;
 
-        g2d.drawImage(
-                imageIcon.getImage(), -visualPosition.getIntX(), visualPosition.getIntY(), null
-        );
 
-        if (position.floorEqual(visualPosition)) {
+        if (position.equals(visualPosition)) {
             animationTick.perform(null);
             visualPosition.move(position);
             dx = dy = x = y = 0;
@@ -92,8 +89,13 @@ public class LevelRenderModule extends RenderModule {
             } else {
                 y = y1;
             }
+
             visualPosition.move(x, y);
         }
+
+        g2d.drawImage(
+                imageIcon.getImage(), -visualPosition.getIntX(), visualPosition.getIntY(), null
+        );
     }
 
     private double calculateLinearInterpolation(double m, double x1, double y1, double x) {

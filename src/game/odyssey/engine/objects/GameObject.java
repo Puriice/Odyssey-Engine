@@ -8,10 +8,11 @@ import java.io.FileNotFoundException;
 
 public class GameObject {
     private String id;
+    private String entityId;
 
-    public Resource getResource() {
+    public Resource getSprite() {
         try {
-            return new Resource(Game.getGameInstance().GAME_ID + "/assets/objects/" + getId());
+            return new Resource( Game.getGameInstance().GAME_ID + "/assets/objects/" + getId() + ".png");
         } catch (FileNotFoundException e) {
             return null;
         }
@@ -29,5 +30,14 @@ public class GameObject {
         return id;
     }
 
-    public void onInteract() {};
+    public String getEntityId() {
+        return entityId;
+    }
+
+    public GameObject setEntityId(String entityId) {
+        this.entityId = entityId;
+        return this;
+    }
+
+    public void onInteract() {}
 }

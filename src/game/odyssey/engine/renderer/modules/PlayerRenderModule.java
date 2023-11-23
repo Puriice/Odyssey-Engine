@@ -18,7 +18,7 @@ public class PlayerRenderModule extends RenderModule{
     public void render(Graphics2D g2d) {
         Coordinate center =
                 new Coordinate(
-                        (int) ((Renderer.TILE_PIXEL_WIDE - Game.getGameInstance().getEngine().GAME_WIDTH) / 2.0),
+                        (int) ((Renderer.TILE_PIXEL_WIDTH - Game.getGameInstance().getEngine().GAME_WIDTH) / 2.0),
                         (int) ((Renderer.TILE_PIXEL_HEIGHT - Game.getGameInstance().getEngine().GAME_HEIGHT) / 2.0)
                 );
 
