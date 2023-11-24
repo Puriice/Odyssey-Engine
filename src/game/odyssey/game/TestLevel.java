@@ -7,47 +7,17 @@ import game.odyssey.engine.levels.Entry;
 import game.odyssey.engine.levels.Level;
 import game.odyssey.engine.utils.Coordinate;
 
+import java.util.function.Supplier;
+
 @Entry
 @Id("levelone")
 public class TestLevel extends Level {
     @Override
     public void onStart(Player player) {
         this.setMapPivotInPixel(new Coordinate(24, 0));
-        this.addChunk(new Chunk() {
+        Supplier<Chunk> chunk = () -> new Chunk() {
             @Override
             protected void build() {
-//                this.addObject("bookshelf", new Coordinate(0,1));
-//                this.addObject("bookshelf", new Coordinate(1,1));
-//                this.addObject("bookshelf", new Coordinate(2,1));
-//                this.addObject("bookshelf", new Coordinate(3,1));
-//                this.addObject("bookshelf", new Coordinate(4,1));
-//                this.addObject("bookshelf", new Coordinate(5,1));
-//                this.addObject("bookshelf", new Coordinate(6,1));
-//                this.addObject("bookshelf", new Coordinate(7,1));
-//                this.addObject("bookshelf", new Coordinate(8,1));
-//                this.addObject("bookshelf", new Coordinate(9,1));
-//                this.addObject("bookshelf", new Coordinate(10,1));
-//                this.addObject("bookshelf", new Coordinate(11,1));
-//                this.addObject("bookshelf", new Coordinate(12,1));
-//                this.addObject("bookshelf", new Coordinate(13,1));
-//                this.addObject("bookshelf", new Coordinate(14,1));
-//                this.addObject("bookshelf", new Coordinate(15,1));
-//                this.addObject("bookshelf", new Coordinate(0,3));
-//                this.addObject("bookshelf", new Coordinate(1,3));
-//                this.addObject("bookshelf", new Coordinate(2,3));
-//                this.addObject("bookshelf", new Coordinate(3,3));
-//                this.addObject("bookshelf", new Coordinate(4,3));
-//                this.addObject("bookshelf", new Coordinate(5,3));
-//                this.addObject("bookshelf", new Coordinate(6,3));
-//                this.addObject("bookshelf", new Coordinate(7,3));
-//                this.addObject("bookshelf", new Coordinate(8,3));
-//                this.addObject("bookshelf", new Coordinate(9,3));
-//                this.addObject("bookshelf", new Coordinate(10,3));
-//                this.addObject("bookshelf", new Coordinate(11,3));
-//                this.addObject("bookshelf", new Coordinate(12,3));
-//                this.addObject("bookshelf", new Coordinate(13,3));
-//                this.addObject("bookshelf", new Coordinate(14,3));
-//                this.addObject("bookshelf", new Coordinate(15,3));
                 System.out.println("Test");
                 for (int i = 0; i < 16; i++) {
                     for (int j = 0; j < 8; j++) {
@@ -65,7 +35,12 @@ public class TestLevel extends Level {
             protected void destroy(Player player, Coordinate playerCoordinate) {
 
             }
-        }, 1, 1);
+        };
+
+        this.addChunk(chunk.get(), 0, 0);
+        this.addChunk(chunk.get(), 0 ,1);
+        this.addChunk(chunk.get(), 1 ,0);
+        this.addChunk(chunk.get(), 1 ,1);
 
 //        this.setBackground(Color.BLUE);
     }
