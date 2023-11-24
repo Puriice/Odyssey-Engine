@@ -33,6 +33,8 @@ public class Renderer {
         modules.add(new LevelRenderModule());
         modules.add(new ObjectRenderModule());
         modules.add(new PlayerRenderModule());
+        modules.add(new EntityObjectRenderModule());
+        modules.add(new DebugInformationRenderModule());
 
         TickUpdate tickUpdate = new TickUpdate(60);
 
@@ -73,12 +75,8 @@ public class Renderer {
 
 //        modules.forEach(m -> {
 //            m.update(level, Game.getGameInstance().getPlayer());
-//            m.render(g);
 //        });
-        for (RenderModule module: modules) {
-            module.update(level, Game.getGameInstance().getPlayer());
-            module.render(g);
-        }
+        modules.forEach(m -> m.render(g));
     }
 
     private static void listener(GameLoadingEvent event) {

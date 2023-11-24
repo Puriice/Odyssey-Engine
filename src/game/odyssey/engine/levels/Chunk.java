@@ -3,14 +3,15 @@ package game.odyssey.engine.levels;
 import game.odyssey.engine.common.Game;
 import game.odyssey.engine.common.Id;
 import game.odyssey.engine.entities.Player;
+import game.odyssey.engine.objects.GameObject;
+import game.odyssey.engine.registries.Register;
+import game.odyssey.engine.registries.RegistryObject;
 import game.odyssey.engine.utils.Coordinate;
 import game.odyssey.engine.utils.Resource;
 
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 public abstract class Chunk {
     public enum State {
@@ -24,7 +25,8 @@ public abstract class Chunk {
     public static final int CHUNK_TILE_HEIGHT = 16;
 
     private State state = State.GHOST;
-    private final HashMap<String, ArrayList<Coordinate>> OBJECTS = new HashMap<>();
+//    private final HashMap<String, ArrayList<Coordinate>> OBJECTS = new HashMap<>();
+    private final ArrayList<GameObject> OBJECTS = new ArrayList<>();
     private ImageIcon map;
     private Coordinate position = Coordinate.ZERO;
 
@@ -37,33 +39,67 @@ public abstract class Chunk {
         onStateChange();
     }
 
+//    public void addObject(String objectId, Coordinate... position) {
+//
+//        if (!this.OBJECTS.containsKey(objectId)) {
+//            this.OBJECTS.put(objectId, new ArrayList<>(List.of(position)));
+//        } else {
+//            for (Coordinate pos: position) {
+//                if (pos.getX() > Chunk.CHUNK_TILE_WIDTH || pos.getX() < 0|| pos.getY() > Chunk.CHUNK_TILE_HEIGHT || pos.getY() < 0) {
+//                    System.out.println("Object is outside of Chunk");
+//                }
+//                if (isOverlap(pos)) throw new IllegalArgumentException("Object is overlap with another object");
+//
+//                this.OBJECTS.get(objectId).add(pos);
+//            }
+//        }
+//    }
+
     public void addObject(String objectId, Coordinate... position) {
+        Register<GameObject> objectRegister = Register.createRegister(Register.Type.OBJECT);
 
-        if (!this.OBJECTS.containsKey(objectId)) {
-            this.OBJECTS.put(objectId, new ArrayList<>(List.of(position)));
-        } else {
-            for (Coordinate pos: position) {
-                if (pos.getX() > Chunk.CHUNK_TILE_WIDTH || pos.getX() < 0|| pos.getY() > Chunk.CHUNK_TILE_HEIGHT || pos.getY() < 0) {
-                    System.out.println("Object is outside of Chunk");
-                }
-                if (isOverlap(pos)) throw new IllegalArgumentException("Object is overlap with another object");
-
-                this.OBJECTS.get(objectId).add(pos);
+        for (Coordinate pos: position) {
+            if (pos.getX() > Chunk.CHUNK_TILE_WIDTH || pos.getX() < 0|| pos.getY() > Chunk.CHUNK_TILE_HEIGHT || pos.getY() < 0) {
+                System.out.println("Object is outside of Chunk");
+                return;
             }
+
+            if (isOverlap(pos)) throw new IllegalArgumentException("Object is overlap with another object");
+
+            RegistryObject<GameObject> registry = objectRegister.query(objectId);
+
+            if (registry == null) return;
+
+            GameObject gameObject = registry.get();
+
+            gameObject.setPosition(pos);
+
+            this.OBJECTS.add(gameObject);
         }
     }
 
+//    private boolean isOverlap(Coordinate position) {
+//        for (ArrayList<Coordinate> v: this.OBJECTS.values()) {
+//            for (Coordinate pos: v) {
+//                if (pos.equals(position)) return true;
+//            }
+//        }
+//
+//        return false;
+//    }
+
     private boolean isOverlap(Coordinate position) {
-        for (ArrayList<Coordinate> v: this.OBJECTS.values()) {
-            for (Coordinate pos: v) {
-                if (pos.equals(position)) return true;
-            }
+        for (GameObject object: this.OBJECTS) {
+            if (object.getPosition().equals(position)) return true;
         }
 
         return false;
     }
+//    public HashMap<String, ArrayList<Coordinate>> getObjects() {
+//        return OBJECTS;
+//    }
 
-    public HashMap<String, ArrayList<Coordinate>> getObjects() {
+    public ArrayList<GameObject> getObjects() {
         return OBJECTS;
     }
 

@@ -1,14 +1,17 @@
 package game.odyssey.engine.renderer;
 
+import game.odyssey.engine.objects.GameObject;
 import game.odyssey.engine.utils.Coordinate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 @SuppressWarnings("unused")
 public class Context {
     public enum Common {
         LEVEL("LEVEL"),
-        VISUAL("VISUAL");
+        VISUAL("VISUAL"),
+        ENTITY_OBJECT("ENTITY");
 
         private final String key;
         Common(String key) {
@@ -24,6 +27,8 @@ public class Context {
 
     public Context() {
         set(Common.VISUAL, new Coordinate());
+//        set(Common.ENTITY_OBJECT, new HashMap<String, ArrayList<Coordinate>>());
+        set(Common.ENTITY_OBJECT, new ArrayList<GameObject>());
     }
 
     public Object get(String id) {

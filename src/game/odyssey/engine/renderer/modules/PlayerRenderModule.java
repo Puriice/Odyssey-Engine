@@ -28,9 +28,9 @@ public class PlayerRenderModule extends RenderModule{
             g2d.drawImage(
                     player.getSprite().getImage(),
                     (int) -center.getX(),
-                    (int) -center.getY() - 16,
+                    (int) -center.getY() - 24,
                     (int) -center.getX() + Player.ENTITY_WIDTH,
-                    (int) -center.getY() - 16 + Player.ENTITY_HEIGHT,
+                    (int) -center.getY() - 24 + Player.ENTITY_HEIGHT,
                     player.getMoveState() * Player.ENTITY_WIDTH,
                     0,
                     player.getMoveState() * Player.ENTITY_WIDTH + Player.ENTITY_WIDTH,

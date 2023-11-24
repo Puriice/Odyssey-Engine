@@ -23,8 +23,9 @@ public abstract class Level {
     }
 
     protected void addChunk(Chunk chunk, int row, int column) {
-        chunk.setPosition(new Coordinate(column, row).readOnly());
         chunk.build();
+        chunk.setPosition(new Coordinate(column, row).readOnly());
+
         this.CHUNKS.add(chunk);
     }
 

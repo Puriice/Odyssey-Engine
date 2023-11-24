@@ -16,7 +16,44 @@ public class TestLevel extends Level {
         this.addChunk(new Chunk() {
             @Override
             protected void build() {
-                this.addObject("bookshelf", new Coordinate(1,1));
+//                this.addObject("bookshelf", new Coordinate(0,1));
+//                this.addObject("bookshelf", new Coordinate(1,1));
+//                this.addObject("bookshelf", new Coordinate(2,1));
+//                this.addObject("bookshelf", new Coordinate(3,1));
+//                this.addObject("bookshelf", new Coordinate(4,1));
+//                this.addObject("bookshelf", new Coordinate(5,1));
+//                this.addObject("bookshelf", new Coordinate(6,1));
+//                this.addObject("bookshelf", new Coordinate(7,1));
+//                this.addObject("bookshelf", new Coordinate(8,1));
+//                this.addObject("bookshelf", new Coordinate(9,1));
+//                this.addObject("bookshelf", new Coordinate(10,1));
+//                this.addObject("bookshelf", new Coordinate(11,1));
+//                this.addObject("bookshelf", new Coordinate(12,1));
+//                this.addObject("bookshelf", new Coordinate(13,1));
+//                this.addObject("bookshelf", new Coordinate(14,1));
+//                this.addObject("bookshelf", new Coordinate(15,1));
+//                this.addObject("bookshelf", new Coordinate(0,3));
+//                this.addObject("bookshelf", new Coordinate(1,3));
+//                this.addObject("bookshelf", new Coordinate(2,3));
+//                this.addObject("bookshelf", new Coordinate(3,3));
+//                this.addObject("bookshelf", new Coordinate(4,3));
+//                this.addObject("bookshelf", new Coordinate(5,3));
+//                this.addObject("bookshelf", new Coordinate(6,3));
+//                this.addObject("bookshelf", new Coordinate(7,3));
+//                this.addObject("bookshelf", new Coordinate(8,3));
+//                this.addObject("bookshelf", new Coordinate(9,3));
+//                this.addObject("bookshelf", new Coordinate(10,3));
+//                this.addObject("bookshelf", new Coordinate(11,3));
+//                this.addObject("bookshelf", new Coordinate(12,3));
+//                this.addObject("bookshelf", new Coordinate(13,3));
+//                this.addObject("bookshelf", new Coordinate(14,3));
+//                this.addObject("bookshelf", new Coordinate(15,3));
+                System.out.println("Test");
+                for (int i = 0; i < 16; i++) {
+                    for (int j = 0; j < 8; j++) {
+                        this.addObject("bookshelf", new Coordinate(i, 2*j + 1));
+                    }
+                }
             }
 
             @Override

@@ -13,8 +13,6 @@ import game.odyssey.engine.utils.Resource;
 
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class ObjectRenderModule extends RenderModule {
     @Override
@@ -27,33 +25,55 @@ public class ObjectRenderModule extends RenderModule {
         Coordinate visualPosition = (Coordinate) getContext().get(Context.Common.VISUAL);
         Chunk[] chunks = ((Level) getContext().get(Context.Common.LEVEL)).getChunks();
 
+        Register<GameObject> register = Register.createRegister(Register.Type.OBJECT);
+        ArrayList<GameObject> entityObjects = new ArrayList<>();
+        ArrayList<GameObject> gameObjects;
+
+        Coordinate chunkPosition, positionOfChunkInPixel, position;
+
+        Resource sprite;
+        int[] ChunkSize = new int[] { Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_WIDTH, Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_HEIGHT };
+
         for (Chunk chunk: chunks) {
-            Coordinate chunkPosition = chunk.getPosition();
-            Coordinate positionOfChunkInPixel = new Coordinate();
+            chunkPosition = chunk.getPosition();
+            positionOfChunkInPixel = new Coordinate();
 
-            positionOfChunkInPixel.setX(-visualPosition.getX() + chunkPosition.getX()*Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_WIDTH);
-            positionOfChunkInPixel.setY(visualPosition.getY() + chunkPosition.getY()*Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_HEIGHT);
+            positionOfChunkInPixel.setX(-visualPosition.getX() + chunkPosition.getX()*ChunkSize[0]);
+            positionOfChunkInPixel.setY(visualPosition.getY() + chunkPosition.getY()*ChunkSize[1]);
 
-            HashMap<String, ArrayList<Coordinate>> gameObjects = chunk.getObjects();
-            Register<GameObject> objectRegister = Register.createRegister(Register.Type.OBJECT);
+            gameObjects = chunk.getObjects();
 
-            for (Map.Entry<String, ArrayList<Coordinate>> entry: gameObjects.entrySet()) {
-                RegistryObject<GameObject> registry = objectRegister.query(entry.getKey());
-
-                GameObject object = registry.get();
-                Resource sprite = object.getSprite();
+            for (GameObject object: gameObjects) {
+                sprite = object.getSprite();
 
                 if (sprite == null) continue;
 
-                for (Coordinate position: entry.getValue()) {
-                    g2d.drawImage(
-                            sprite.getImageIcon().getImage(),
+                position = object.getPosition();
+
+                if (object.getEntityId() != null) {
+                    RegistryObject<GameObject> entityObj = register.query(object.getEntityId());
+
+                    if (entityObj == null) continue;
+
+                    GameObject entity = entityObj.get();
+
+                    entity.setPosition(new Coordinate(
                             positionOfChunkInPixel.getIntX() + position.getIntX() * Renderer.TILE_PIXEL_WIDTH,
-                            positionOfChunkInPixel.getIntY() + position.getIntY() * Renderer.TILE_PIXEL_HEIGHT,
-                            null
-                    );
+                            positionOfChunkInPixel.getIntY() + (position.getIntY() - 1) * Renderer.TILE_PIXEL_HEIGHT
+                    ));
+
+                    entityObjects.add(entity);
                 }
+
+                g2d.drawImage(
+                        sprite.getImageIcon().getImage(),
+                        positionOfChunkInPixel.getIntX() + position.getIntX() * Renderer.TILE_PIXEL_WIDTH,
+                        positionOfChunkInPixel.getIntY() + position.getIntY() * Renderer.TILE_PIXEL_HEIGHT,
+                        null
+                );
             }
         }
+
+        getContext().set(Context.Common.ENTITY_OBJECT, entityObjects);
     }
 }

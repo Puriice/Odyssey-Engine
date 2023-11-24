@@ -42,7 +42,7 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
         Event.setupCommonEvent();
 
         Renderer.setup();
-        this.SERVER_THREAD.start();
+//        this.SERVER_THREAD.start();
 
         this.addKeyListener(this);
         this.addMouseListener(this);

@@ -1,7 +1,6 @@
 package game.odyssey.engine.renderer.modules;
 
 import game.odyssey.engine.common.Game;
-import game.odyssey.engine.common.TickUpdate;
 import game.odyssey.engine.entities.Entity;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Level;
@@ -13,14 +12,14 @@ import javax.swing.*;
 import java.awt.*;
 
 public class LevelRenderModule extends RenderModule {
-    private static final int COUNT_OF_Xi = 60;
+    private static final int COUNT_OF_Xi = 24;
     private double dx = 0;
     private double dy = 0;
     private int x = 0, y = 0;
-    private final TickUpdate animationTick = new TickUpdate(18);
+//    private final TickUpdate animationTick = new TickUpdate(18);
 
     public LevelRenderModule() {
-        new Thread(animationTick).start();
+//        new Thread(animationTick).start();
     }
 
     @Override
@@ -51,13 +50,13 @@ public class LevelRenderModule extends RenderModule {
 
 
         if (position.equals(visualPosition)) {
-            animationTick.perform(null);
+//            animationTick.perform(null);
             visualPosition.move(position);
             dx = dy = x = y = 0;
 
             player.resetMoveState();
         } else {
-            animationTick.perform(player::nextMoveState);
+//            animationTick.perform(player::nextMoveState);
 
             double y2 = position.getY();
             double y1 = visualPosition.getY();
@@ -90,8 +89,10 @@ public class LevelRenderModule extends RenderModule {
                 y = y1;
             }
 
+            player.nextMoveState();
             visualPosition.move(x, y);
         }
+
 
         g2d.drawImage(
                 imageIcon.getImage(), -visualPosition.getIntX(), visualPosition.getIntY(), null
