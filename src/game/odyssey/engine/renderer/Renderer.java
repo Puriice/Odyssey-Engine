@@ -38,7 +38,10 @@ public class Renderer {
 
         TickUpdate tickUpdate = new TickUpdate(60);
 
-        tickUpdate.perform(() -> Game.getGameInstance().getEngine().repaint());
+        tickUpdate.perform(() -> {
+            modules.forEach(m -> m.update(level, Game.getGameInstance().getPlayer()));
+            Game.getGameInstance().getEngine().repaint();
+        });
 
         renderThread = new Thread(tickUpdate);
 
@@ -64,6 +67,7 @@ public class Renderer {
     }
 
     public static void setLevel(Level level) {
+//        level.buildObject();
         Context.CONTEXT.set(Context.Common.LEVEL, level);
         Renderer.level = level;
     }
@@ -73,9 +77,6 @@ public class Renderer {
         if (Game.getGameInstance() == null) return;
         if (Game.getGameInstance().getPlayer() == null) return;
 
-//        modules.forEach(m -> {
-//            m.update(level, Game.getGameInstance().getPlayer());
-//        });
         modules.forEach(m -> m.render(g));
     }
 

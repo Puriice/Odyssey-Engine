@@ -50,6 +50,13 @@ public class ObjectRenderModule extends RenderModule {
 
                 position = object.getPosition();
 
+                g2d.drawImage(
+                        sprite.getImageIcon().getImage(),
+                        positionOfChunkInPixel.getIntX() + position.getIntX() * Renderer.TILE_PIXEL_WIDTH,
+                        positionOfChunkInPixel.getIntY() + position.getIntY() * Renderer.TILE_PIXEL_HEIGHT,
+                        null
+                );
+
                 if (object.getEntityId() != null) {
                     RegistryObject<GameObject> entityObj = register.query(object.getEntityId());
 
@@ -64,16 +71,8 @@ public class ObjectRenderModule extends RenderModule {
 
                     entityObjects.add(entity);
                 }
-
-                g2d.drawImage(
-                        sprite.getImageIcon().getImage(),
-                        positionOfChunkInPixel.getIntX() + position.getIntX() * Renderer.TILE_PIXEL_WIDTH,
-                        positionOfChunkInPixel.getIntY() + position.getIntY() * Renderer.TILE_PIXEL_HEIGHT,
-                        null
-                );
             }
         }
-
         getContext().set(Context.Common.ENTITY_OBJECT, entityObjects);
     }
 }

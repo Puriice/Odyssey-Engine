@@ -18,6 +18,8 @@ public abstract class Level {
     private ImageIcon map;
     private Coordinate pivot = Coordinate.ZERO;
     private Coordinate visualPosition = Coordinate.ZERO;
+//    private final ArrayList<GameObject> gameObjects = new ArrayList<>();
+//    private final ArrayList<GameObject> entityObjects = new ArrayList<>();
     public Level() {
 
     }
@@ -82,6 +84,67 @@ public abstract class Level {
     protected void navigate() {
         this.onLeave(Game.getGameInstance().getPlayer());
     }
+
+//    public void buildObject() {
+//        this.gameObjects.clear();
+//        this.entityObjects.clear();
+//
+////        int[] ChunkSize = new int[] { Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_WIDTH, Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_HEIGHT };
+//
+//        Register<GameObject> register = Register.createRegister(Register.Type.OBJECT);
+//        ArrayList<GameObject> gameObjects;
+//        GameObject gameObject, entityObject;
+//
+//        Coordinate chunkPosition, positionOfChunk, position;
+//        RegistryObject<GameObject> objectRegistry, entityRegistry;
+//
+//        for (Chunk chunk: CHUNKS) {
+//            chunkPosition = chunk.getPosition();
+//
+//            positionOfChunk = new Coordinate();
+//
+//            positionOfChunk.setX(chunkPosition.getX()*Chunk.CHUNK_TILE_WIDTH);
+//            positionOfChunk.setY(chunkPosition.getY()*Chunk.CHUNK_TILE_HEIGHT);
+//
+//            gameObjects = chunk.getObjects();
+//
+//            for (GameObject obj: gameObjects) {
+//                objectRegistry = register.query(obj.getId());
+//
+//                position = obj.getPosition();
+//
+//                gameObject = objectRegistry.get();
+//                gameObject.setPosition(new Coordinate(
+//                        positionOfChunk.getX() + position.getX(),
+//                        positionOfChunk.getY() + position.getY()
+//                ));
+//
+//                this.gameObjects.add(gameObject);
+//
+//                if (obj.getEntityId() != null) {
+//                    entityRegistry = register.query(obj.getEntityId());
+//
+//                    if (entityRegistry == null) continue;
+//
+//                    entityObject = entityRegistry.get();
+//
+//                    entityObject.setPosition(new Coordinate(
+//                        positionOfChunk.getX() + position.getX(),
+//                        positionOfChunk.getY() + position.getY() + 1
+//                    ));
+//
+//                    entityObjects.add(entityObject);
+//                }
+//            }
+//        }
+//    }
+//    public GameObject[] getGameObjects() {
+//        return gameObjects.toArray(new GameObject[0]);
+//    }
+//
+//    public GameObject[] getEntityObjects() {
+//        return entityObjects.toArray(new GameObject[0]);
+//    }
 
     // on Register
     public abstract void onStart(Player player);

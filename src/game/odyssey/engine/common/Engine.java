@@ -4,6 +4,7 @@ import game.odyssey.engine.entities.event.PlayerMoveEvent;
 import game.odyssey.engine.events.Event;
 import game.odyssey.engine.events.common.*;
 import game.odyssey.engine.events.common.FocusEvent;
+import game.odyssey.engine.renderer.RenderPanel;
 import game.odyssey.engine.renderer.Renderer;
 
 import javax.swing.*;
@@ -18,7 +19,7 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
 
     public final double GAME_WIDTH;
     public final double GAME_HEIGHT;
-    private final Component CONTENT_PANE;
+    private final Container CONTENT_PANE;
     private final TickUpdate TICK_UPDATER;
     private final Thread SERVER_THREAD;
 
@@ -39,6 +40,8 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLayout(null);
 
+        this.CONTENT_PANE.add(new RenderPanel(GAME_WIDTH, GAME_HEIGHT));
+
         Event.setupCommonEvent();
 
         Renderer.setup();
@@ -50,10 +53,10 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
         this.setVisible(true);
     }
 
-    @Override
-    public void paint(Graphics g) {
-        Renderer.draw((Graphics2D) g);
-    }
+//    @Override
+//    public void paint(Graphics g) {
+//        Renderer.draw((Graphics2D) g);
+//    }
 
     @Override
     public void keyTyped(KeyEvent e) {
