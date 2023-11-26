@@ -13,8 +13,8 @@ public class ServerTick extends TickUpdate {
     public ServerTick() {
         super(20);
 
-        cycleModules.add(new LevelUpdateCycleModule());
         cycleModules.add(new PlayerPositionUpdateCycleModule());
+        cycleModules.add(new LevelUpdateCycleModule());
 
         this.operation = this::cycle;
     }

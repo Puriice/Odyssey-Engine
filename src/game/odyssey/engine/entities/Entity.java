@@ -116,7 +116,6 @@ public abstract class Entity {
     }
 
     public void moveBy(double dx, double dy) {
-//        this.position.translate(dx, dy);
         this.targetPosition.translate(dx, dy);
 
         if (dx > 0 && dy == 0) {

@@ -10,6 +10,8 @@ import game.odyssey.engine.utils.Rectangle;
 
 import javax.swing.*;
 
+import java.util.List;
+
 import static game.odyssey.engine.entities.Entity.ENTITY_WIDTH;
 import static game.odyssey.engine.levels.Chunk.CHUNK_TILE_WIDTH;
 import static game.odyssey.engine.renderer.Context.Common.*;
@@ -66,10 +68,6 @@ public class PlayerPositionUpdateCycleModule extends CycleModule{
 
         target.translate(-center.getX(), center.getY() - TILE_PIXEL_HEIGHT / 2);
 
-        System.out.println("map width = " + (map.getIconWidth()));
-        System.out.println("map height = " + (map.getIconHeight()));
-        System.out.println("Y target = " + target.getY());
-
         boolean isOutsideTopOfTheMap = -target.getY() < 0;
         boolean isOutsideRightOfTheMap = target.getX() > map.getIconWidth() - pivot.getX();
         boolean isOutsideBottomOfTheMap = -target.getY() > map.getIconHeight() - pivot.getY();
@@ -91,6 +89,24 @@ public class PlayerPositionUpdateCycleModule extends CycleModule{
 
         return !(isOutsideTopOfTheChunk || isOutsideRightOfTheChunk || isOutsideBottomOfTheChunk || isOutsideLeftOfTheChunk);
     }
+
+    private boolean checkIfHitGameObject(Coordinate pivot, Coordinate target, Level level) {
+        Chunk currentChunk = level.getCurrentChunk();
+        List<Chunk> surroundedChunk = level.getChunkGraph().bfs(currentChunk, i -> {
+//            System.out.println(i);
+            return false;
+        });
+
+
+        for (Chunk c: surroundedChunk) {
+            System.out.println(c);
+        }
+
+        System.out.println("=====");
+
+        return true;
+    }
+
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
     private boolean getPossibleTileMoving(Coordinate visual, Coordinate target, Level level) {
         boolean toReturn = true;
@@ -124,6 +140,10 @@ public class PlayerPositionUpdateCycleModule extends CycleModule{
 
             return false;
         }
+
+        newTarget = new Coordinate(target);
+
+        checkIfHitGameObject(visual, newTarget, level);
 
         return true;
     }
