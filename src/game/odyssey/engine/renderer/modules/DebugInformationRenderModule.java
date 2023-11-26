@@ -100,8 +100,8 @@ public class DebugInformationRenderModule extends RenderModule{
         g2d.setColor(new Color(0,0,0,75));
 
         g2d.fillRect(10,10, 200, 145);
-        g2d.fillRect(225, 10,200, 75);
-        g2d.fillRect(450, 10,200, 75);
+        g2d.fillRect(225, 10,200, 95);
+//        g2d.fillRect(450, 10,200, 75);
 
         g2d.setColor(Color.WHITE);
 
@@ -115,10 +115,13 @@ public class DebugInformationRenderModule extends RenderModule{
         g2d.drawString("Used Memory: " + String.format("%.2f", usedMemory), 25, 135);
 
 
-        g2d.drawString("Visual Position", 240, 35);
-        g2d.drawString("X: " + String.format("%.2f", -visualPosition.getX()) + " Y: " + String.format("%.2f", visualPosition.getY()), 240, 60);
-        g2d.drawString("Player Position", 465, 35);
-        g2d.drawString("X: " + String.format("%f", playerPosition.getX()) + " Y: " + String.format("%f", playerPosition.getY()), 465, 60);
+//        g2d.drawString("Visual Position", 240, 35);
+        g2d.drawString("V/X: " + String.format("%.2f", -visualPosition.getX()) + " Y: " + String.format("%.2f", visualPosition.getY()), 240, 35);
+        g2d.drawString("P/X: " + String.format("%.0f", playerPosition.getX()) + " Y: " + String.format("%.0f", playerPosition.getY()), 240, 60);
+
+        Chunk currentChunk = level.getCurrentChunk();
+
+        g2d.drawString("C/X: " + String.format("%.0f", currentChunk.getPosition().getX()) + " Y: " + String.format("%.0f", -currentChunk.getPosition().getY() + 0), 240, 85);
 
     }
 }

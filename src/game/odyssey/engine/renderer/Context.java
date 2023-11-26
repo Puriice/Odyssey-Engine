@@ -28,20 +28,16 @@ public class Context {
 
     public Context() {
         set(Common.VISUAL, new Coordinate());
-//        set(Common.ENTITY_OBJECT, new HashMap<String, ArrayList<Coordinate>>());
         set(Common.ENTITY_OBJECT, new ArrayList<GameObject>());
-
     }
 
     public Object get(String id) {
         return data.get(id);
     }
     public Object get(Common id) { return data.get(id.getKey()); }
-
     public void set(String id, Object data) {
         this.data.put(id, data);
     }
-
     public void set(Common id, Object data) {
         this.data.put(id.getKey(), data);
     }

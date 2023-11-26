@@ -3,7 +3,6 @@ package game.odyssey.engine.entities;
 import game.odyssey.engine.entities.event.PlayerMoveEvent;
 import game.odyssey.engine.events.Event;
 import game.odyssey.engine.input.Action;
-import game.odyssey.engine.utils.Coordinate;
 
 import javax.swing.*;
 
@@ -41,7 +40,4 @@ public class Player extends Entity {
         else if (result == cancel) cancel();
     }
 
-    public void move(Coordinate position) {
-        super.move(position);
-    }
 }

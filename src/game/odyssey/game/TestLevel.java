@@ -53,7 +53,7 @@ public class TestLevel extends Level {
 
     @Override
     public void onHitChunkBorder(Player player, Coordinate playerPosition, Coordinate chunkPosition) {
-        System.out.println("chunkPosition = " + chunkPosition);
+//        System.out.println("chunkPosition = " + chunkPosition);
     }
 
     @Override

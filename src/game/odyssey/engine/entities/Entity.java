@@ -12,6 +12,7 @@ public abstract class Entity {
     public static final int MOVE_STATE_COUNT = 3;
     protected EntitySprite sprite;
     protected Coordinate position = new Coordinate();
+    protected Coordinate targetPosition = new Coordinate();
     protected Direction[] facing = new Direction[]{ Direction.NORTH, Direction.NORTH };
     protected float hp = 100.0F;
     protected float atkDamage = 1.0F;
@@ -87,6 +88,14 @@ public abstract class Entity {
         return position;
     }
 
+    public Coordinate getTargetPosition() {
+        return targetPosition;
+    }
+
+    public void resetTargetPosition() {
+        targetPosition = new Coordinate();
+    }
+
     public void setFacing(Direction facing) {
         this.facing = new Direction[] { facing, facing };
     }
@@ -94,20 +103,21 @@ public abstract class Entity {
         this.facing = new Direction[] { facing1, facing2 };
     }
 
-    protected void move(Coordinate position) {
+    public void move(Coordinate position) {
         this.position.move(position);
     }
 
-    protected void move(double dx, double dy) {
+    public void move(double dx, double dy) {
         this.position.move(dx, dy);
     }
 
-    protected void moveBy(Coordinate position) {
+    public void moveBy(Coordinate position) {
         this.moveBy(position.getX(), position.getY());
     }
 
-    protected void moveBy(double dx, double dy) {
-        this.position.translate(dx, dy);
+    public void moveBy(double dx, double dy) {
+//        this.position.translate(dx, dy);
+        this.targetPosition.translate(dx, dy);
 
         if (dx > 0 && dy == 0) {
             setFacing(Direction.EAST);
@@ -127,23 +137,19 @@ public abstract class Entity {
             setFacing(Direction.SOUTH, Direction.WEST);
         }
     }
-    protected void moveUp() {
-        setFacing(Direction.NORTH);
+    public void moveUp() {
         this.position.translate(0,1);
     }
 
-    protected void moveRight() {
-        setFacing(Direction.EAST);
+    public void moveRight() {
         this.position.translate(1, 0);
     }
 
-    protected void moveDown() {
-        setFacing(Direction.SOUTH);
+    public void moveDown() {
         this.position.translate(0, -1);
     }
 
-    protected void moveLeft() {
-        setFacing(Direction.WEST);
+    public void moveLeft() {
         this.position.translate(-1, 0);
     }
 }
