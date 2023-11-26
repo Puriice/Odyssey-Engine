@@ -9,7 +9,7 @@ import game.odyssey.engine.utils.Coordinate;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-public class LevelUpdateCycleModule extends CycleModule {
+public class CurrentChunkUpdateCycleModule extends CycleModule {
     @Override
     public void cycle() {
         Level level = (Level) getRenderContext().get(Context.Common.LEVEL);
@@ -25,7 +25,7 @@ public class LevelUpdateCycleModule extends CycleModule {
 
         AtomicInteger i = new AtomicInteger();
 
-        level.getChunkGraph().bfs(currentChunk, c -> i.getAndIncrement() < 8,  (chunks) -> {
+        level.getChunkGraph().bfs(currentChunk, c -> i.getAndIncrement() < 9,  (chunks) -> {
             for (Chunk chunk: chunks) {
                 if (isPlayerInChunk(playerPosition, chunk.getPosition())) {
                     level.setCurrentChunk(chunk);
