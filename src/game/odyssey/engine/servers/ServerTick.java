@@ -3,6 +3,7 @@ package game.odyssey.engine.servers;
 import game.odyssey.engine.common.TickUpdate;
 import game.odyssey.engine.servers.modules.CycleModule;
 import game.odyssey.engine.servers.modules.CurrentChunkUpdateCycleModule;
+import game.odyssey.engine.servers.modules.LevelUpdateCycleModule;
 import game.odyssey.engine.servers.modules.PlayerPositionUpdateCycleModule;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ public class ServerTick extends TickUpdate {
 
         cycleModules.add(new PlayerPositionUpdateCycleModule());
         cycleModules.add(new CurrentChunkUpdateCycleModule());
+        cycleModules.add(new LevelUpdateCycleModule());
 
         this.operation = this::cycle;
     }
