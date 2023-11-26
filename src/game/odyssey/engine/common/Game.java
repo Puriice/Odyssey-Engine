@@ -2,6 +2,8 @@ package game.odyssey.engine.common;
 
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.events.common.GameLoadingEvent;
+import game.odyssey.engine.levels.Level;
+import game.odyssey.engine.renderer.Context;
 import game.odyssey.engine.renderer.RenderPanel;
 
 import java.io.File;
@@ -43,6 +45,10 @@ public class Game {
 
     public void setCycle(Runnable cycle) {
         engine.setServerCycle(cycle);
+    }
+
+    public Level getCurrentLevel() {
+        return (Level) Context.CONTEXT.get(Context.Common.LEVEL);
     }
 
     public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {

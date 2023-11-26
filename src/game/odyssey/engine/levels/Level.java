@@ -159,15 +159,7 @@ public abstract class Level {
         maxChunkCol = Math.max(spawnChunk.getIntX(), maxChunkCol);
         minChunkRow = Math.min(spawnChunk.getIntY(), minChunkRow);
         maxChunkRow = Math.max(spawnChunk.getIntY(), maxChunkRow);
-//        if (spawnChunk.getX() <  minChunkCol) minChunkCol = spawnChunk.getIntX();
-//        if (spawnChunk.getX() > maxChunkCol) maxChunkCol = spawnChunk.getIntX();
-//        if (spawnChunk.getY() < minChunkRow) minChunkRow = spawnChunk.getIntY();
-//        if (spawnChunk.getY() > maxChunkRow) maxChunkRow = spawnChunk.getIntY();
 
-//        if (0 < minChunkCol) minChunkCol = 0;
-//        if (0 > maxChunkCol) maxChunkCol = 0;
-//        if (0 < minChunkRow) minChunkRow = 0;
-//        if (0 > maxChunkRow) maxChunkRow = 0;
         minChunkCol = Math.min(0, minChunkCol);
         maxChunkCol = Math.max(0, maxChunkCol);
         minChunkRow = Math.min(0, minChunkRow);
@@ -176,15 +168,6 @@ public abstract class Level {
         int temp = maxChunkRow;
         maxChunkRow = -minChunkRow;
         minChunkRow = -temp;
-
-        System.out.println("spawnPoint = " + spawnPoint);
-
-        System.out.println("spawnChunk = " + spawnChunk);
-
-        System.out.println("maxChunkRow = " + maxChunkRow);
-        System.out.println("minChunkRow = " + minChunkRow);
-        System.out.println("maxChunkCol = " + maxChunkCol);
-        System.out.println("minChunkCol = " + minChunkCol);
 
         for (int i = minChunkRow; i <= maxChunkRow; i++) {
             for (int j = minChunkCol; j <= maxChunkCol; j++) {
@@ -235,7 +218,6 @@ public abstract class Level {
 
         chunkGraph.getVertexCount();
         chunkGraph.getEdgesCount(true);
-        System.out.println("Current player chunk: " + this.currentPlayerChunk);
     }
 
     private boolean isPlayerInChunk(Coordinate playerPosition, Coordinate chunkPosition) {

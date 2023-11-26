@@ -9,9 +9,6 @@ import game.odyssey.engine.utils.Coordinate;
 public class GameChunk extends Chunk {
     @Override
     protected void build() {
-        for (int i = 0; i < 15; i++) {
-            addObject("bookshelf", new Coordinate(i,6));
-        }
     }
 
     @Override

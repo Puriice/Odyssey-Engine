@@ -39,22 +39,17 @@ public class PlayerPositionUpdateCycleModule extends CycleModule{
         Coordinate targetPlayerPosition = new Coordinate(playerPosition);
         Coordinate pivot = level.getPivot();
 
-        System.out.println("targetPosition = " + targetPosition);
         targetPlayerPosition.translate(targetPosition);
-        System.out.println("targetPlayerPosition = " + targetPlayerPosition);
 
         Coordinate position = new Coordinate();
 
         position.setX(pivot.getX() + targetPlayerPosition.getX() * TILE_PIXEL_WIDTH);
         position.setY(-pivot.getY() + targetPlayerPosition.getY() * TILE_PIXEL_HEIGHT);
-        System.out.println("position = " + position);
 
         boolean possibleMove = getPossibleTileMoving(visualPosition, position, level, targetPlayerPosition);
 
-        System.out.println(possibleMove);
 
         if (possibleMove) {
-            System.out.println("possible to move");
             player.move(new Coordinate(targetPlayerPosition));
         }
 

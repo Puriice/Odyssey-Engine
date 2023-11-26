@@ -96,6 +96,10 @@ public abstract class Entity {
         targetPosition = new Coordinate();
     }
 
+    public Direction[] getFacing() {
+        return facing.clone();
+    }
+
     public void setFacing(Direction facing) {
         this.facing = new Direction[] { facing, facing };
     }
