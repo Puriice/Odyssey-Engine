@@ -3,7 +3,7 @@ package game.odyssey.engine.renderer.modules;
 import game.odyssey.engine.common.Game;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Level;
-import game.odyssey.engine.renderer.Renderer;
+import game.odyssey.engine.renderer.Context;
 import game.odyssey.engine.utils.Coordinate;
 
 import java.awt.*;
@@ -16,11 +16,7 @@ public class PlayerRenderModule extends RenderModule{
 
     @Override
     public void render(Graphics2D g2d) {
-        Coordinate center =
-                new Coordinate(
-                        (int) ((Renderer.TILE_PIXEL_WIDTH - Game.getGameInstance().getEngine().GAME_WIDTH) / 2.0),
-                        (int) ((Renderer.TILE_PIXEL_HEIGHT - Game.getGameInstance().getEngine().GAME_HEIGHT) / 2.0)
-                );
+        Coordinate center = (Coordinate) getContext().get(Context.Common.CENTER);
 
         Player player = Game.getGameInstance().getPlayer();
 

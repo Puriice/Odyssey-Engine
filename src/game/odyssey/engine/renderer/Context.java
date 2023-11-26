@@ -11,7 +11,8 @@ public class Context {
     public enum Common {
         LEVEL("LEVEL"),
         VISUAL("VISUAL"),
-        ENTITY_OBJECT("ENTITY");
+        ENTITY_OBJECT("ENTITY"),
+        CENTER("CENTER");
 
         private final String key;
         Common(String key) {
@@ -29,6 +30,7 @@ public class Context {
         set(Common.VISUAL, new Coordinate());
 //        set(Common.ENTITY_OBJECT, new HashMap<String, ArrayList<Coordinate>>());
         set(Common.ENTITY_OBJECT, new ArrayList<GameObject>());
+
     }
 
     public Object get(String id) {

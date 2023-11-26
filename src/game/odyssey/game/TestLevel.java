@@ -10,20 +10,21 @@ import game.odyssey.engine.utils.Coordinate;
 import java.util.function.Supplier;
 
 @Entry
-@Id("levelone")
+//@Id("testbg")
+@Id("leveltwo")
 public class TestLevel extends Level {
     @Override
     public void onStart(Player player) {
-        this.setMapPivotInPixel(new Coordinate(24, 0));
+        this.setMapPivotInPixel(new Coordinate(24, 3));
         Supplier<Chunk> chunk = () -> new Chunk() {
             @Override
             protected void build() {
-                System.out.println("Test");
-                for (int i = 0; i < 16; i++) {
-                    for (int j = 0; j < 8; j++) {
-                        this.addObject("bookshelf", new Coordinate(i, 2*j + 1));
-                    }
-                }
+//                for (int i = 0; i < 16; i++) {
+//                    for (int j = 0; j < 8; j++) {
+//                        this.addObject("bookshelf", new Coordinate(i, 2*j + 1));
+//                    }
+//                }
+                this.addObject("bookshelf", new Coordinate(0,15));
             }
 
             @Override
@@ -37,12 +38,22 @@ public class TestLevel extends Level {
             }
         };
 
-        this.addChunk(chunk.get(), 0, 0);
-        this.addChunk(chunk.get(), 0 ,1);
-        this.addChunk(chunk.get(), 1 ,0);
-        this.addChunk(chunk.get(), 1 ,1);
+//        this.addChunk(chunk.get(), -3 ,-3);
+//        this.addChunk(chunk.get(), -2 ,-3);
+//        this.addChunk(chunk.get(), -2 ,0);
+//        this.addChunk(chunk.get(), -1, 1);
+//        this.addChunk(chunk.get(), 2 ,2);
+//        this.addChunk(chunk.get(), 3, 3);
+        this.addChunk(chunk.get(), 1 ,2);
+        this.addChunk(chunk.get(), -1,2);
+//        this.addChunk(chunk.get(), -1 ,0);
 
-//        this.setBackground(Color.BLUE);
+//        this.setSpawnPoint(16, 16);
+    }
+
+    @Override
+    public void onHitChunkBorder(Player player, Coordinate playerPosition, Coordinate chunkPosition) {
+        System.out.println("chunkPosition = " + chunkPosition);
     }
 
     @Override

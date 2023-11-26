@@ -23,6 +23,7 @@ public class ObjectRenderModule extends RenderModule {
     @Override
     public void render(Graphics2D g2d) {
         Coordinate visualPosition = (Coordinate) getContext().get(Context.Common.VISUAL);
+        Coordinate center = (Coordinate) getContext().get(Context.Common.CENTER);
         Chunk[] chunks = ((Level) getContext().get(Context.Common.LEVEL)).getChunks();
 
         Register<GameObject> register = Register.createRegister(Register.Type.OBJECT);
@@ -32,14 +33,14 @@ public class ObjectRenderModule extends RenderModule {
         Coordinate chunkPosition, positionOfChunkInPixel, position;
 
         Resource sprite;
-        int[] ChunkSize = new int[] { Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_WIDTH, Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_HEIGHT };
+        int[] ChunkSize = new int[] { Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_WIDTH, Chunk.CHUNK_TILE_HEIGHT*Renderer.TILE_PIXEL_HEIGHT };
 
         for (Chunk chunk: chunks) {
             chunkPosition = chunk.getPosition();
             positionOfChunkInPixel = new Coordinate();
 
-            positionOfChunkInPixel.setX(-visualPosition.getX() + chunkPosition.getX()*ChunkSize[0]);
-            positionOfChunkInPixel.setY(visualPosition.getY() + chunkPosition.getY()*ChunkSize[1]);
+            positionOfChunkInPixel.setX(-center.getX() + 24 -visualPosition.getX() + chunkPosition.getX()*ChunkSize[0]);
+            positionOfChunkInPixel.setY(-center.getY() + 6 + visualPosition.getY() + chunkPosition.getY()*ChunkSize[1]);
 
             gameObjects = chunk.getObjects();
 
@@ -52,8 +53,8 @@ public class ObjectRenderModule extends RenderModule {
 
                 g2d.drawImage(
                         sprite.getImageIcon().getImage(),
-                        positionOfChunkInPixel.getIntX() + position.getIntX() * Renderer.TILE_PIXEL_WIDTH,
-                        positionOfChunkInPixel.getIntY() + position.getIntY() * Renderer.TILE_PIXEL_HEIGHT,
+                        (int) (positionOfChunkInPixel.getX() + position.getIntX() * Renderer.TILE_PIXEL_WIDTH),
+                        (int) (positionOfChunkInPixel.getY() + position.getIntY() * Renderer.TILE_PIXEL_HEIGHT),
                         null
                 );
 
@@ -74,5 +75,31 @@ public class ObjectRenderModule extends RenderModule {
             }
         }
         getContext().set(Context.Common.ENTITY_OBJECT, entityObjects);
+//        ArrayList<GameObject>
+//        GameObject[] gameObjects = ((Level) getContext().get(Context.Common.LEVEL)).getGameObjects();
+//        Resource sprite;
+//        Coordinate visualPosition = (Coordinate) getContext().get(Context.Common.VISUAL);
+//        Coordinate position;
+//        for (GameObject object: gameObjects) {
+//            sprite = object.getSprite();
+//
+//            if (sprite == null) continue;
+//
+//            position = object.getPosition();
+//            System.out.println(position);
+//
+//            g2d.drawImage(
+//                    sprite.getImageIcon().getImage(),
+//                    (int) (-visualPosition.getX() + position.getX() * Renderer.TILE_PIXEL_WIDTH),
+//                    (int) (visualPosition.getY() + position.getY() * Renderer.TILE_PIXEL_HEIGHT),
+//                    null
+//            );
+//            g2d.drawImage(
+//                    sprite.getImageIcon().getImage(),
+//                    (int) (visualPosition.getX() + position.getX() * Renderer.TILE_PIXEL_WIDTH),
+//                    (int) (visualPosition.getY() + position.getY() * Renderer.TILE_PIXEL_HEIGHT),
+//                    null
+//            );
+//        }
     }
 }

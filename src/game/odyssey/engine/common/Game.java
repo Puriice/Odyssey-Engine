@@ -2,6 +2,7 @@ package game.odyssey.engine.common;
 
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.events.common.GameLoadingEvent;
+import game.odyssey.engine.renderer.RenderPanel;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,6 +33,10 @@ public class Game {
         return engine;
     }
 
+    public RenderPanel getRenderPanel() {
+        return engine.getRenderPanel();
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -53,7 +58,9 @@ public class Game {
 
         aClass.getDeclaredConstructor().newInstance();
 
+
         new GameLoadingEvent().dispatch();
+
     }
 
     private static Class<?> scanClassWithAnnotation() {

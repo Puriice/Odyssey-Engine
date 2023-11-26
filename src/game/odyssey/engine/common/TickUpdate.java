@@ -1,5 +1,7 @@
 package game.odyssey.engine.common;
 
+import java.util.function.Consumer;
+
 @SuppressWarnings("unused")
 public class TickUpdate implements Runnable
 {
@@ -8,6 +10,7 @@ public class TickUpdate implements Runnable
 
     private final int TICK_RATE;
     private Runnable operation;
+    private Consumer<Integer> listener;
 
     public TickUpdate(int TICK_RATE) {
         this.TICK_RATE = TICK_RATE;
@@ -21,60 +24,39 @@ public class TickUpdate implements Runnable
         this.operation = operation;
     }
 
+    public void performEverySecond(Consumer<Integer> listener) { this.listener = listener; }
     @Override
     public void run() {
         final int NANO = 1000000000;
-//        long prevTime = System.nanoTime(), current, timeDelta;
-//        while (isRunning) {
-//            current = System.nanoTime();
-//            timeDelta = current - prevTime;
-//
-//            // make game update every 1/TICK seconds
-//            if (timeDelta < NANO / TICK_RATE) continue;
-//            prevTime = current;
-//
-//            try {
-//                if (operation != null) {
-//                    operation.run();
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-        double drawInterval = (double) NANO / TICK_RATE;
-
-        double delta = 0;
-        long lastTime = System.nanoTime();
-        long currentTime;
-        long timer = 0;
+        long prevTime = System.nanoTime(), current, timeDelta = 0L, sumTimeDelta = 0L;
         int drawCount = 0;
 
-        while(isRunning) {
+        while (isRunning) {
+            current = System.nanoTime();
+            timeDelta += current - prevTime;
+            sumTimeDelta += current - prevTime;
+            prevTime = current;
 
-            currentTime = System.nanoTime();
+            if (sumTimeDelta > NANO) {
+                if (listener != null) listener.accept(drawCount);
 
-            delta +=(currentTime - lastTime) / drawInterval;
-            timer += (currentTime - lastTime);
-            lastTime = currentTime;
-
-            if(delta >= 1 ) {
-                delta--;
-                drawCount++;
-                try {
-                    if (operation != null) {
-                        operation.run();
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                sumTimeDelta = drawCount = 0;
             }
 
-            if(timer >= NANO) {
-                System.out.println("FPS:" + drawCount);
-                drawCount = 0;
-                timer = 0;
+            // make update every 1/TICK seconds
+            if (timeDelta < NANO / TICK_RATE) continue;
+
+            timeDelta = 0;
+            drawCount++;
+
+            try {
+                if (operation != null) {
+                    operation.run();
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         }
     }
+
 }

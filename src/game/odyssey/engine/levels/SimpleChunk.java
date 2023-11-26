@@ -16,6 +16,10 @@ public class SimpleChunk extends Chunk{
     public SimpleChunk(Runnable build) {
         this.build = build;
     }
+    public SimpleChunk(Coordinate position) {
+        super();
+        super.setPosition(position);
+    }
 
     public SimpleChunk(DoubleConsumer<Player, Coordinate> start, DoubleConsumer<Player, Coordinate> destroy) {
         this.start = start;
@@ -27,6 +31,7 @@ public class SimpleChunk extends Chunk{
         this.start = start;
         this.destroy = destroy;
     }
+
 
     @Override
     protected void build() {

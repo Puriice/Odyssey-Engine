@@ -65,6 +65,18 @@ public class Coordinate {
         this.y = y;
     }
 
+    public void addX(double x) {
+        if (isReadOnly) return;
+
+        this.x += x;
+    }
+
+    public void addY(double y) {
+        if (isReadOnly) return;
+
+        this.y += y;
+    }
+
     public void move(double x, double y) {
         if (isReadOnly) return;
         this.x = x;
@@ -81,8 +93,9 @@ public class Coordinate {
         this.y += dy;
     }
 
-    public void translate(Coordinate other) {
+    public Coordinate translate(Coordinate other) {
         this.translate(other.x, other.y);
+        return this;
     }
     public void rotate(double angle) {
         if (isReadOnly) return;

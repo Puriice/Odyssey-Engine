@@ -12,6 +12,7 @@ import game.odyssey.engine.utils.Resource;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public abstract class Chunk {
     public enum State {
@@ -134,4 +135,17 @@ public abstract class Chunk {
     protected abstract void build();
     protected abstract void start(Player player, Coordinate playerCoordinate);
     protected abstract void destroy(Player player, Coordinate playerCoordinate);
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Chunk chunk = (Chunk) o;
+        return Objects.equals(position, chunk.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(position);
+    }
 }

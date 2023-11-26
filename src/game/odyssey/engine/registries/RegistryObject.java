@@ -18,7 +18,7 @@ public class RegistryObject<T> {
         T toReturn = object.get();
 
         if (toReturn instanceof GameObject obj && obj.getId() == null) obj.setId(id);
-        else if (toReturn instanceof Level lvl && Game.getGameInstance() != null) lvl.onStart(Game.getGameInstance().getPlayer());
+        else if (toReturn instanceof Level lvl && Game.getGameInstance() != null) lvl.buildLevel();
 
         return toReturn;
     }
