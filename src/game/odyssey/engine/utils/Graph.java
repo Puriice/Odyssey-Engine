@@ -1,6 +1,8 @@
 package game.odyssey.engine.utils;
 
 import java.util.*;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class Graph<T>  {
     private final Map<T, List<T>> map = new HashMap<>();
@@ -40,6 +42,52 @@ public class Graph<T>  {
         return map.keySet();
     }
 
+    public void bfs(T startVertex, Predicate<T> condition, Consumer<List<T>> consumer) {
+        Queue<T> queue1 = new LinkedList<>();
+        Queue<T> queue2 = new LinkedList<>();
+        Set<T> visited = new HashSet<>();
+
+        queue1.offer(startVertex);
+        visited.add(startVertex);
+
+        List<T> levelNodes = new LinkedList<>();
+
+        while (!queue1.isEmpty() || !queue2.isEmpty()) {
+            while (!queue1.isEmpty()) {
+                T currentVertex = queue1.poll();
+                levelNodes.add(currentVertex);
+
+                for (T neighbor : map.get(currentVertex)) {
+                    if (!visited.contains(neighbor)) {
+                        queue2.offer(neighbor);
+                        visited.add(neighbor);
+                    }
+                }
+            }
+
+            if (condition.test(levelNodes.get(levelNodes.size() - 1))) {
+                consumer.accept(levelNodes);
+                levelNodes = new LinkedList<>();
+            }
+
+            while (!queue2.isEmpty()) {
+                T currentVertex = queue2.poll();
+                levelNodes.add(currentVertex);
+
+                for (T neighbor : map.get(currentVertex)) {
+                    if (!visited.contains(neighbor)) {
+                        queue1.offer(neighbor);
+                        visited.add(neighbor);
+                    }
+                }
+            }
+
+            if (condition.test(levelNodes.get(levelNodes.size() - 1))) {
+                consumer.accept(levelNodes);
+                levelNodes = new LinkedList<>();
+            }
+        }
+    }
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder();

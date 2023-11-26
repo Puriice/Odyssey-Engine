@@ -6,6 +6,7 @@ import game.odyssey.engine.events.common.*;
 import game.odyssey.engine.events.common.FocusEvent;
 import game.odyssey.engine.renderer.RenderPanel;
 import game.odyssey.engine.renderer.Renderer;
+import game.odyssey.engine.servers.ServerTick;
 import game.odyssey.engine.utils.Resource;
 
 import javax.swing.*;
@@ -21,7 +22,7 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
     public final double GAME_WIDTH;
     public final double GAME_HEIGHT;
     private final Container CONTENT_PANE;
-    private final TickUpdate TICK_UPDATER;
+    private final ServerTick SERVER_TICK;
     private final Thread SERVER_THREAD;
     private final RenderPanel renderPanel;
     private boolean isReady = false;
@@ -30,8 +31,8 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
         super(title);
 
         this.CONTENT_PANE = this.getContentPane();
-        this.TICK_UPDATER = new TickUpdate(20);
-        this.SERVER_THREAD = new Thread(this.TICK_UPDATER);
+        this.SERVER_TICK = new ServerTick();
+        this.SERVER_THREAD = new Thread(this.SERVER_TICK);
 
         this.setSize(Engine.SCREEN_WIDTH, Engine.SCREEN_HEIGHT);
         this.setResizable(false);
@@ -69,7 +70,8 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
         Event.setupCommonEvent();
 
         Renderer.setup();
-//        this.SERVER_THREAD.start();
+
+        this.SERVER_THREAD.start();
 
         this.addKeyListener(this);
         this.addMouseListener(this);
@@ -78,6 +80,10 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
 
     public RenderPanel getRenderPanel() {
         return renderPanel;
+    }
+
+    void setServerCycle(Runnable cycle) {
+        this.SERVER_TICK.perform(cycle);
     }
 
     @Override
@@ -126,14 +132,7 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
 
     private void onReady(GameLoadingEvent event) {
         isReady = true;
+        SERVER_THREAD.start();
     }
 
-//    @Override
-//    public void paint(Graphics g) {
-////        super.paint(g);
-//
-////        if (!isReady) {
-//            Renderer.drawIntro((Graphics2D) g);
-////        }
-//    }
 }

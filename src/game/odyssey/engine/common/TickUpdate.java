@@ -7,9 +7,8 @@ public class TickUpdate implements Runnable
 {
 //    public static final int TICK_RATE = 20;
     private transient boolean isRunning = true;
-
     private final int TICK_RATE;
-    private Runnable operation;
+    protected Runnable operation;
     private Consumer<Integer> listener;
 
     public TickUpdate(int TICK_RATE) {

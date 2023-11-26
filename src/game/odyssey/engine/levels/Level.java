@@ -50,6 +50,18 @@ public abstract class Level {
         return this.CHUNKS.toArray(new Chunk[0]);
     }
 
+    public void setCurrentChunk(Chunk currentPlayerChunk) {
+        this.currentPlayerChunk = currentPlayerChunk;
+    }
+
+    public Chunk getCurrentChunk() {
+        return currentPlayerChunk;
+    }
+
+    public Graph<Chunk> getChunkGraph() {
+        return chunkGraph;
+    }
+
     public Color getBackground() {
         return background;
     }
@@ -106,7 +118,6 @@ public abstract class Level {
 
 
     }
-
     public Coordinate getSpawnPoint() {
         return spawnPoint;
     }
@@ -173,7 +184,7 @@ public abstract class Level {
 
                 }
 
-                if (isSpawnPointInChunk(currentCoordinate)) {
+                if (isPlayerInChunk(spawnPoint, currentCoordinate)) {
                     this.currentPlayerChunk = currentChunk;
                 }
 
@@ -211,12 +222,12 @@ public abstract class Level {
         System.out.println("Current player chunk: " + this.currentPlayerChunk);
     }
 
-    private boolean isSpawnPointInChunk(Coordinate chunkPosition) {
+    private boolean isPlayerInChunk(Coordinate playerPosition, Coordinate chunkPosition) {
         double x = chunkPosition.getX();
         double y = -chunkPosition.getY();
 
-        boolean isInX = (x * Chunk.CHUNK_TILE_WIDTH) <= spawnPoint.getX() && spawnPoint.getX() < (x + 1) * Chunk.CHUNK_TILE_WIDTH;
-        boolean isInY = (y * Chunk.CHUNK_TILE_HEIGHT) <= spawnPoint.getY() && spawnPoint.getY() < (y + 1) * Chunk.CHUNK_TILE_HEIGHT;
+        boolean isInX = (x * Chunk.CHUNK_TILE_WIDTH) <= playerPosition.getX() && playerPosition.getX() < (x + 1) * Chunk.CHUNK_TILE_WIDTH;
+        boolean isInY = (y * Chunk.CHUNK_TILE_HEIGHT) >= playerPosition.getY() && playerPosition.getY() > (y - 1) * Chunk.CHUNK_TILE_HEIGHT;
 
         return isInX && isInY;
     }

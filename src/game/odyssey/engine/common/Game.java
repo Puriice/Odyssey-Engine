@@ -41,6 +41,10 @@ public class Game {
         return player;
     }
 
+    public void setCycle(Runnable cycle) {
+        engine.setServerCycle(cycle);
+    }
+
     public static void main(String[] args) throws IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException {
         Class<?> aClass = scanClassWithAnnotation();
 
