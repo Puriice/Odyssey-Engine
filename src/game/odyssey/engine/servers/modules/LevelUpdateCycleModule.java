@@ -14,6 +14,8 @@ public class LevelUpdateCycleModule extends CycleModule {
     public void cycle() {
         Level level = (Level) getRenderContext().get(Context.Common.LEVEL);
 
+        if (level == null) return;
+
         Chunk currentChunk = level.getCurrentChunk();
         Player player = Game.getGameInstance().getPlayer();
 

@@ -4,6 +4,7 @@ import game.odyssey.engine.common.Game;
 import game.odyssey.engine.entities.Player;
 import game.odyssey.engine.levels.Chunk;
 import game.odyssey.engine.levels.Level;
+import game.odyssey.engine.objects.GameObject;
 import game.odyssey.engine.renderer.Renderer;
 import game.odyssey.engine.utils.Coordinate;
 import game.odyssey.engine.utils.Rectangle;
@@ -11,8 +12,10 @@ import game.odyssey.engine.utils.Rectangle;
 import javax.swing.*;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import static game.odyssey.engine.entities.Entity.ENTITY_WIDTH;
+import static game.odyssey.engine.levels.Chunk.CHUNK_TILE_HEIGHT;
 import static game.odyssey.engine.levels.Chunk.CHUNK_TILE_WIDTH;
 import static game.odyssey.engine.renderer.Context.Common.*;
 import static game.odyssey.engine.renderer.Renderer.TILE_PIXEL_HEIGHT;
@@ -46,7 +49,7 @@ public class PlayerPositionUpdateCycleModule extends CycleModule{
         position.setY(-pivot.getY() + targetPlayerPosition.getY() * TILE_PIXEL_HEIGHT);
         System.out.println("position = " + position);
 
-        boolean possibleMove = getPossibleTileMoving(visualPosition, position, level);
+        boolean possibleMove = getPossibleTileMoving(visualPosition, position, level, targetPlayerPosition);
 
         System.out.println(possibleMove);
 
@@ -90,25 +93,37 @@ public class PlayerPositionUpdateCycleModule extends CycleModule{
         return !(isOutsideTopOfTheChunk || isOutsideRightOfTheChunk || isOutsideBottomOfTheChunk || isOutsideLeftOfTheChunk);
     }
 
-    private boolean checkIfHitGameObject(Coordinate pivot, Coordinate target, Level level) {
+    private Coordinate getObjectPosition(Coordinate object, Coordinate chunk) {
+        Coordinate position = new Coordinate();
+
+        position.setX(object.getX() + (chunk.getX() * CHUNK_TILE_WIDTH));
+        position.setY(-object.getY() + (chunk.getY() * -CHUNK_TILE_HEIGHT));
+
+        return position;
+    }
+
+    private boolean checkIfHitGameObject(Coordinate targetPlayerPosition, Level level) {
         Chunk currentChunk = level.getCurrentChunk();
-        List<Chunk> surroundedChunk = level.getChunkGraph().bfs(currentChunk, i -> {
-//            System.out.println(i);
-            return false;
-        });
+
+        AtomicInteger i = new AtomicInteger(0);
+
+        List<Chunk> surroundedChunk = level.getChunkGraph().bfs(currentChunk, c -> i.getAndIncrement() < 2);
 
 
         for (Chunk c: surroundedChunk) {
-            System.out.println(c);
+            GameObject[] gameObjects= c.getObjects();
+            for (GameObject object: gameObjects) {
+                Coordinate objectPosition = getObjectPosition(object.getPosition(), c.getPosition());
+                if (targetPlayerPosition.equals(objectPosition)) return false;
+            }
         }
 
-        System.out.println("=====");
 
         return true;
     }
 
     @SuppressWarnings("IntegerDivisionInFloatingPointContext")
-    private boolean getPossibleTileMoving(Coordinate visual, Coordinate target, Level level) {
+    private boolean getPossibleTileMoving(Coordinate visual, Coordinate target, Level level, Coordinate playerTarget) {
         boolean toReturn = true;
 
         if (visual.equals(target)) return toReturn;
@@ -117,9 +132,12 @@ public class PlayerPositionUpdateCycleModule extends CycleModule{
 
         Coordinate newTarget = new Coordinate(target);
 
-        toReturn = checkIfItOutSideMap(newTarget, level);
+        if (level.willDoBorderCollision()) {
+            toReturn = checkIfItOutSideMap(newTarget, level);
 
-        if (!toReturn) return false;
+            if (!toReturn) return false;
+
+        }
 
         newTarget = new Coordinate(target);
 
@@ -141,11 +159,10 @@ public class PlayerPositionUpdateCycleModule extends CycleModule{
             return false;
         }
 
-        newTarget = new Coordinate(target);
 
-        checkIfHitGameObject(visual, newTarget, level);
+        toReturn = checkIfHitGameObject(new Coordinate(playerTarget).readOnly(), level);
 
-        return true;
+        return toReturn;
     }
 
 }

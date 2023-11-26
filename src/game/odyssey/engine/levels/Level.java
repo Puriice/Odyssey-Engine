@@ -3,6 +3,8 @@ package game.odyssey.engine.levels;
 import game.odyssey.engine.common.Game;
 import game.odyssey.engine.common.Id;
 import game.odyssey.engine.entities.Player;
+import game.odyssey.engine.registries.Register;
+import game.odyssey.engine.registries.RegistryObject;
 import game.odyssey.engine.utils.Coordinate;
 import game.odyssey.engine.utils.Graph;
 import game.odyssey.engine.utils.Rectangle;
@@ -44,6 +46,16 @@ public abstract class Level {
         if (row < minChunkRow) minChunkRow = row;
         if (column > maxChunkCol) maxChunkCol = column;
         if (column < minChunkCol) minChunkCol = column;
+    }
+
+    protected void addChunk(String chunkId, int row, int column) {
+        Register<Chunk> chunkRegister = Register.createRegister(Register.Type.CHUNK);
+
+        RegistryObject<Chunk> chunk = chunkRegister.query(chunkId);
+
+        if (chunk == null) return;
+
+        addChunk(chunk.get(), row, column);
     }
 
     public Chunk[] getChunks() {
@@ -120,6 +132,10 @@ public abstract class Level {
     }
     public Coordinate getSpawnPoint() {
         return spawnPoint;
+    }
+
+    public boolean willDoBorderCollision() {
+        return !this.getClass().isAnnotationPresent(NoCollision.class);
     }
 
     protected void navigate() {

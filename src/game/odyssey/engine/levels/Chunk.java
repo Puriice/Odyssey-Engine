@@ -40,21 +40,6 @@ public abstract class Chunk {
         onStateChange();
     }
 
-//    public void addObject(String objectId, Coordinate... position) {
-//
-//        if (!this.OBJECTS.containsKey(objectId)) {
-//            this.OBJECTS.put(objectId, new ArrayList<>(List.of(position)));
-//        } else {
-//            for (Coordinate pos: position) {
-//                if (pos.getX() > Chunk.CHUNK_TILE_WIDTH || pos.getX() < 0|| pos.getY() > Chunk.CHUNK_TILE_HEIGHT || pos.getY() < 0) {
-//                    System.out.println("Object is outside of Chunk");
-//                }
-//                if (isOverlap(pos)) throw new IllegalArgumentException("Object is overlap with another object");
-//
-//                this.OBJECTS.get(objectId).add(pos);
-//            }
-//        }
-//    }
 
     public void addObject(String objectId, Coordinate... position) {
         Register<GameObject> objectRegister = Register.createRegister(Register.Type.OBJECT);
@@ -100,15 +85,15 @@ public abstract class Chunk {
 //        return OBJECTS;
 //    }
 
-    public ArrayList<GameObject> getObjects() {
-        return OBJECTS;
+    public GameObject[] getObjects() {
+        return OBJECTS.toArray(new GameObject[0]);
     }
 
     public ImageIcon getMap() {
         if (map != null) return map;
         try {
             String chunkId = getId();
-            return Resource.resolve("/" + Game.getGameInstance().GAME_ID + "/assets/chunks/" + chunkId + ".png");
+            return Resource.resolve(Game.getGameInstance().GAME_ID + "/assets/chunks/" + chunkId + ".png");
         } catch (FileNotFoundException e) {
             return null;
         }

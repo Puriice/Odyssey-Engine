@@ -63,13 +63,12 @@ public class Graph<T>  {
         queue1.offer(startVertex);
         visited.add(startVertex);
 
-        List<T> nodes = new LinkedList<>();
-        boolean shouldBeBreak;
+        List<T> levelNodes = new LinkedList<>();
 
         while (!queue1.isEmpty() || !queue2.isEmpty()) {
             while (!queue1.isEmpty()) {
                 T currentVertex = queue1.poll();
-                nodes.add(currentVertex);
+                levelNodes.add(currentVertex);
 
                 for (T neighbor : map.get(currentVertex)) {
                     if (!visited.contains(neighbor)) {
@@ -79,27 +78,18 @@ public class Graph<T>  {
                 }
             }
 
-            if (condition != null) {
 
-                shouldBeBreak = !condition.test(nodes.get(nodes.size() - 1));
-
-                if (shouldBeBreak) {
-                    resultNodes.addAll(nodes);
-                    break;
-                }
-            }
-
-            if (!nodes.isEmpty() && (condition == null)) {
+            if (!levelNodes.isEmpty() && (condition == null || condition.test(levelNodes.get(levelNodes.size() - 1)))) {
                 if (consumer != null) {
-                    consumer.accept(nodes);
+                    consumer.accept(levelNodes);
                 }
-                resultNodes.addAll(nodes);
-                nodes = new LinkedList<>();
+                resultNodes.addAll(levelNodes);
+                levelNodes = new LinkedList<>();
             }
 
             while (!queue2.isEmpty()) {
                 T currentVertex = queue2.poll();
-                nodes.add(currentVertex);
+                levelNodes.add(currentVertex);
 
                 for (T neighbor : map.get(currentVertex)) {
                     if (!visited.contains(neighbor)) {
@@ -109,12 +99,12 @@ public class Graph<T>  {
                 }
             }
 
-            if (!nodes.isEmpty() && (condition == null || condition.test(nodes.get(nodes.size() - 1)))) {
+            if (!levelNodes.isEmpty() && (condition == null || condition.test(levelNodes.get(levelNodes.size() - 1)))) {
                 if (consumer != null) {
-                    consumer.accept(nodes);
+                    consumer.accept(levelNodes);
                 }
-                resultNodes.addAll(nodes);
-                nodes = new LinkedList<>();
+                resultNodes.addAll(levelNodes);
+                levelNodes = new LinkedList<>();
             }
         }
 

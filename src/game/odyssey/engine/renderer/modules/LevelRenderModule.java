@@ -32,7 +32,6 @@ public class LevelRenderModule extends RenderModule {
 
         ImageIcon imageIcon = level.getMap();
 
-        if (imageIcon == null) return;
 
         Coordinate pivot = level.getPivot();
         Player player = Game.getGameInstance().getPlayer();
@@ -102,6 +101,7 @@ public class LevelRenderModule extends RenderModule {
         }
 
 
+        if (imageIcon == null) return;
         g2d.drawImage(
                 imageIcon.getImage(), -visualPosition.getIntX(), visualPosition.getIntY(), null
         );

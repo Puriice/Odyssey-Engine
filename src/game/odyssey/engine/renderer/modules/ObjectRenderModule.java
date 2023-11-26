@@ -11,6 +11,7 @@ import game.odyssey.engine.renderer.Renderer;
 import game.odyssey.engine.utils.Coordinate;
 import game.odyssey.engine.utils.Resource;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -28,19 +29,25 @@ public class ObjectRenderModule extends RenderModule {
 
         Register<GameObject> register = Register.createRegister(Register.Type.OBJECT);
         ArrayList<GameObject> entityObjects = new ArrayList<>();
-        ArrayList<GameObject> gameObjects;
+        GameObject[] gameObjects;
 
         Coordinate chunkPosition, positionOfChunkInPixel, position;
 
         Resource sprite;
-        int[] ChunkSize = new int[] { Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_WIDTH, Chunk.CHUNK_TILE_HEIGHT*Renderer.TILE_PIXEL_HEIGHT };
+        int[] chunkSize = new int[] { Chunk.CHUNK_TILE_WIDTH*Renderer.TILE_PIXEL_WIDTH, Chunk.CHUNK_TILE_HEIGHT*Renderer.TILE_PIXEL_HEIGHT };
 
         for (Chunk chunk: chunks) {
             chunkPosition = chunk.getPosition();
             positionOfChunkInPixel = new Coordinate();
 
-            positionOfChunkInPixel.setX(-center.getX() + 24 -visualPosition.getX() + chunkPosition.getX()*ChunkSize[0]);
-            positionOfChunkInPixel.setY(-center.getY() + 6 + visualPosition.getY() + chunkPosition.getY()*ChunkSize[1]);
+            positionOfChunkInPixel.setX(-center.getX() + 24 -visualPosition.getX() + chunkPosition.getX()*chunkSize[0]);
+            positionOfChunkInPixel.setY(-center.getY() + 6 + visualPosition.getY() + chunkPosition.getY()*chunkSize[1]);
+
+            ImageIcon bg = chunk.getMap();
+
+            if (bg != null) {
+                g2d.drawImage(bg.getImage(), positionOfChunkInPixel.getIntX(), positionOfChunkInPixel.getIntY(), chunkSize[0], chunkSize[1], null);
+            }
 
             gameObjects = chunk.getObjects();
 
