@@ -27,12 +27,12 @@ public class Graph<T>  {
         System.out.println("The graph has " + map.keySet().size() + " vertices");
     }
 
-    public void getEdgesCount(boolean bidirection) {
+    public void getEdgesCount(boolean biDirection) {
         int count = 0;
         for (T v : map.keySet()) {
             count += map.get(v).size();
         }
-        if (bidirection) {
+        if (biDirection) {
             count = count / 2;
         }
         System.out.println("The graph has " + count + " edges.");
@@ -42,10 +42,23 @@ public class Graph<T>  {
         return map.keySet();
     }
 
-    public void bfs(T startVertex, Predicate<T> condition, Consumer<List<T>> consumer) {
+    public List<T> bfs(T startVertex) {
+        return bfs(startVertex, null, null);
+    }
+
+    public List<T> bfs(T startVertex, Predicate<T> condition) {
+        return bfs(startVertex, condition, null);
+    }
+
+    public List<T> bfs(T startVertex, Consumer<List<T>> consumer) {
+        return bfs(startVertex, null, consumer);
+    }
+
+    public List<T> bfs(T startVertex, Predicate<T> condition, Consumer<List<T>> consumer) {
         Queue<T> queue1 = new LinkedList<>();
         Queue<T> queue2 = new LinkedList<>();
         Set<T> visited = new HashSet<>();
+        List<T> resultNodes = new ArrayList<>();
 
         queue1.offer(startVertex);
         visited.add(startVertex);
@@ -65,8 +78,11 @@ public class Graph<T>  {
                 }
             }
 
-            if (condition.test(levelNodes.get(levelNodes.size() - 1))) {
-                consumer.accept(levelNodes);
+            if (!levelNodes.isEmpty() && (condition == null || condition.test(levelNodes.get(levelNodes.size() - 1)))) {
+                if (consumer != null) {
+                    consumer.accept(levelNodes);
+                }
+                resultNodes.addAll(levelNodes);
                 levelNodes = new LinkedList<>();
             }
 
@@ -82,11 +98,16 @@ public class Graph<T>  {
                 }
             }
 
-            if (condition.test(levelNodes.get(levelNodes.size() - 1))) {
-                consumer.accept(levelNodes);
+            if (!levelNodes.isEmpty() && (condition == null || condition.test(levelNodes.get(levelNodes.size() - 1)))) {
+                if (consumer != null) {
+                    consumer.accept(levelNodes);
+                }
+                resultNodes.addAll(levelNodes);
                 levelNodes = new LinkedList<>();
             }
         }
+
+        return resultNodes;
     }
     @Override
     public String toString() {
