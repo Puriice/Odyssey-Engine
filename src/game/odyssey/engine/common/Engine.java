@@ -133,6 +133,7 @@ public class Engine extends JFrame implements KeyListener, MouseListener {
     private void onReady(GameLoadingEvent event) {
         isReady = true;
         SERVER_THREAD.start();
+        this.requestFocus();
     }
 
 }
