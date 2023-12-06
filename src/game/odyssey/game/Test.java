@@ -42,7 +42,6 @@ public class Test {
             if (level == null) return;
 
             Chunk currentChunk = level.getCurrentChunk();
-            System.out.println(currentChunk.getPosition());
 
             Coordinate objPosition = getCoordinate();
 
@@ -71,8 +70,6 @@ public class Test {
         }
 
         objPosition.move(objPosition.getX() % 16, (16 - objPosition.getY()) % 16);
-        System.out.println("player.getPosition() = " + player.getPosition());
-        System.out.println("objPosition = " + objPosition);
 
         return objPosition;
     }
