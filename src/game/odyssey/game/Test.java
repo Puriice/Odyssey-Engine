@@ -45,6 +45,8 @@ public class Test {
 
             Coordinate objPosition = getCoordinate();
 
+            if (objPosition == null) return;
+
             try {
                 currentChunk.addObject("bedrock", objPosition);
             } catch (IllegalArgumentException ignored) {
@@ -58,14 +60,17 @@ public class Test {
         Direction[] facing = player.getFacing();
         Coordinate objPosition = new Coordinate(player.getPosition());
 
-
         if (facing[0] == Direction.NORTH) {
+            if (objPosition.getY() % 16 == 0) return null;
             objPosition.addY(1);
         } else if (facing[0] == Direction.EAST){
+            if (Math.abs(objPosition.getX() % 16) == 15) return null;
             objPosition.addX(1);
         } else if (facing[0] == Direction.SOUTH) {
+            if (Math.abs(objPosition.getY() % 16) == 15) return null;
             objPosition.addY(-1);
         } else if (facing[0] == Direction.WEST) {
+            if (objPosition.getX() % 16 == 0) return null;
             objPosition.addX(-1);
         }
 
