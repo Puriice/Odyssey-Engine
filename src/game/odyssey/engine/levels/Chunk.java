@@ -12,6 +12,7 @@ import game.odyssey.engine.utils.Resource;
 import javax.swing.*;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public abstract class Chunk {
@@ -64,6 +65,30 @@ public abstract class Chunk {
         }
     }
 
+    public void removeObject(String objectId, Coordinate... positions) {
+        Register<GameObject> objectRegister = Register.createRegister(Register.Type.OBJECT);
+
+        for (Coordinate pos: positions) {
+            if (pos.getX() > Chunk.CHUNK_TILE_WIDTH || pos.getX() < 0|| pos.getY() > Chunk.CHUNK_TILE_HEIGHT || pos.getY() < 0) {
+                System.out.println("Object is outside of Chunk");
+                return;
+            }
+
+            RegistryObject<GameObject> registry = objectRegister.query(objectId);
+
+            if (registry == null) return;
+
+            GameObject gameObject = registry.get();
+
+            gameObject.setPosition(pos);
+
+            List<GameObject> newObj = this.OBJECTS.stream().filter(obj -> !obj.equals(gameObject)).toList();
+
+            this.OBJECTS.clear();
+
+            this.OBJECTS.addAll(newObj);
+        }
+    }
 //    private boolean isOverlap(Coordinate position) {
 //        for (ArrayList<Coordinate> v: this.OBJECTS.values()) {
 //            for (Coordinate pos: v) {

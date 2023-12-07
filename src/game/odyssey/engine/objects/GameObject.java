@@ -6,6 +6,7 @@ import game.odyssey.engine.utils.Coordinate;
 import game.odyssey.engine.utils.Resource;
 
 import java.io.FileNotFoundException;
+import java.util.Objects;
 
 public class GameObject {
     private String id;
@@ -50,4 +51,17 @@ public class GameObject {
     }
 
     public void onInteract() {}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        GameObject object = (GameObject) o;
+        return Objects.equals(id, object.id) && Objects.equals(position, object.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, position);
+    }
 }

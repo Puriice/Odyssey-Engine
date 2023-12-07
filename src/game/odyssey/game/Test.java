@@ -34,24 +34,26 @@ public class Test {
 
     private void mouseClickListener(MouseClickEvent event) {
 //        event.getResult().
+        Level level = Game.getGameInstance().getCurrentLevel();
+
+        if (level == null) return;
+
+        Chunk currentChunk = level.getCurrentChunk();
+
+        Coordinate objPosition = getCoordinate();
+
+        if (objPosition == null) return;
+
         MouseEvent result = event.getResult();
 
         if (SwingUtilities.isRightMouseButton(result)) {
-            Level level = Game.getGameInstance().getCurrentLevel();
-
-            if (level == null) return;
-
-            Chunk currentChunk = level.getCurrentChunk();
-
-            Coordinate objPosition = getCoordinate();
-
-            if (objPosition == null) return;
-
             try {
                 currentChunk.addObject("bedrock", objPosition);
             } catch (IllegalArgumentException ignored) {
 
             }
+        } else if (SwingUtilities.isLeftMouseButton(result)) {
+            currentChunk.removeObject("bedrock", objPosition);
         }
     }
 
